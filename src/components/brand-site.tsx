@@ -1,24 +1,25 @@
-import { Clock, Instagram, MapPin, Menu, Pause, Play, ShoppingBag, X } from "lucide-react";
-import {
-  useEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-  type ReactNode,
-  type RefObject,
-} from "react";
-import { brand, heroSlides, heroVideo, isFilled, mural, sizes } from "@/data/brand";
+import { CalendarDays, Instagram, MapPin, Menu, Pause, Play, ShoppingBag, X } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { brand, heroSlides, heroVideo, mural } from "@/data/brand";
+import { flavorsLabel, site, sizeInfo, telHref } from "@/data/site";
 import { MenuSection } from "@/components/menu-section";
+import { Poster, Tricolor } from "@/components/poster";
+import { useOnScreen, useReducedMotion } from "@/hooks/use-motion";
+import { ReservationProvider } from "@/components/reservation";
+import { useReservation } from "@/lib/reservation-context";
+import { Experience, Faq, Loyalty, Reviews, Salon, Visit, Wines } from "@/components/sections";
 import { SiteLoader } from "@/components/site-loader";
-import { OrderTarja, Roll, VisitTarja } from "@/components/tarja";
+import { OrderTarja, ReserveTarja, Roll, Tarja, VisitTarja } from "@/components/tarja";
 import { playHeroSequence } from "@/lib/hero-sequence";
 import { afterLoader } from "@/lib/loader-gate";
 import { installSmoothAnchors } from "@/lib/smooth-scroll";
 
 const nav = [
-  ["Sabores", "#sabores"],
-  ["Tamanhos", "#tamanhos"],
-  ["Salão", "#salao"],
+  ["Cardápio", "#cardapio"],
+  ["Experiência", "#experiencia"],
+  ["Vinhos", "#vinhos"],
+  ["Avaliações", "#avaliacoes"],
+  ["Visite-nos", "#visite"],
 ] as const;
 
 const weekdays = [
@@ -38,97 +39,9 @@ function useDateStamp() {
   return day;
 }
 
-/** `prefers-reduced-motion`, read on the client (false during SSR). */
-function useReducedMotion() {
-  const [reduce, setReduce] = useState(false);
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduce(query.matches);
-    sync();
-    query.addEventListener("change", sync);
-    return () => query.removeEventListener("change", sync);
-  }, []);
-  return reduce;
-}
-
-/** Whether an element is on screen, so off-screen motion can stop costing CPU. */
-function useOnScreen<T extends Element>(ref: RefObject<T | null>) {
-  const [onScreen, setOnScreen] = useState(true);
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(([entry]) =>
-      setOnScreen(Boolean(entry?.isIntersecting)),
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [ref]);
-  return onScreen;
-}
-
-/**
- * A section that prints itself: its `.pass` layers register one at a time the
- * first time it scrolls into view. Content stays visible when it renders
- * already on screen, without JS, or with reduced motion.
- */
-function Poster({
-  id,
-  className = "",
-  children,
-  labelledBy,
-  grain = true,
-}: {
-  id?: string;
-  className?: string;
-  children: ReactNode;
-  labelledBy?: string;
-  grain?: boolean;
-}) {
-  const ref = useRef<HTMLElement>(null);
-  const [state, setState] = useState<"idle" | "pending" | "printed">("idle");
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (node.getBoundingClientRect().top < window.innerHeight * 0.9) return;
-    setState("pending");
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return;
-        setState("printed");
-        observer.disconnect();
-      },
-      { rootMargin: "0px 0px -18% 0px" },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section
-      ref={ref}
-      id={id}
-      aria-labelledby={labelledBy}
-      data-print={state}
-      className={`print relative ${grain ? "paper" : ""} ${className}`}
-    >
-      {children}
-    </section>
-  );
-}
-
-function Tricolor({ className = "" }: { className?: string }) {
-  return (
-    <div aria-hidden="true" className={`flex ${className}`}>
-      <span className="flex-1 bg-flag" />
-      <span className="flex-1 bg-newsprint" />
-      <span className="flex-1 bg-tomato" />
-    </div>
-  );
-}
-
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { openReservation } = useReservation();
 
   return (
     <header data-sticky-header className="sticky top-0 z-50 bg-ink text-newsprint">
@@ -146,29 +59,37 @@ export function SiteHeader() {
             className="h-14 w-14 md:h-16 md:w-16"
           />
         </a>
-        <nav aria-label="Navegação principal" className="hidden items-center gap-9 lg:flex">
+        <nav aria-label="Navegação principal" className="hidden items-center gap-8 xl:flex">
           {nav.map(([label, href]) => (
             <a key={href} href={href} className="nav-link">
               {label}
             </a>
           ))}
-          <a
-            href={brand.instagram}
-            target="_blank"
-            rel="noreferrer"
-            className="nav-link flex items-center gap-2"
-          >
-            <Instagram aria-hidden="true" size={15} /> Instagram
-          </a>
         </nav>
         <div className="flex items-center gap-2">
-          <a href={brand.menu} target="_blank" rel="noreferrer" className="chip chip-solid">
+          <button
+            type="button"
+            className="chip chip-line max-md:hidden"
+            onClick={(event) => openReservation(event.currentTarget)}
+            aria-haspopup="dialog"
+            data-cta="reserva"
+          >
+            <CalendarDays aria-hidden="true" />
+            <Roll>Reservar</Roll>
+          </button>
+          <a
+            href={site.links.menu}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="chip chip-solid"
+            data-cta="pedido"
+          >
             <ShoppingBag aria-hidden="true" />
             <Roll>Pedir agora</Roll>
           </a>
           <button
             type="button"
-            className="menu-toggle lg:hidden"
+            className="menu-toggle xl:hidden"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
             aria-controls="menu-mobile"
@@ -181,11 +102,11 @@ export function SiteHeader() {
       <Tricolor className="h-[3px]" />
       <div
         id="menu-mobile"
-        className={`grid overflow-hidden bg-ink transition-[grid-template-rows] duration-700 ease-[cubic-bezier(.22,1,.36,1)] lg:hidden ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+        className={`grid overflow-hidden bg-ink transition-[grid-template-rows] duration-700 ease-[cubic-bezier(.22,1,.36,1)] xl:hidden ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
       >
         <nav
           aria-label="Navegação mobile"
-          className={`min-h-0 px-4 transition-opacity duration-500 ${open ? "py-4 opacity-100" : "opacity-0"}`}
+          className={`min-h-0 px-4 transition-opacity duration-500 md:px-8 ${open ? "py-4 opacity-100" : "opacity-0"}`}
           inert={!open}
         >
           {nav.map(([label, href]) => (
@@ -193,11 +114,26 @@ export function SiteHeader() {
               {label}
             </a>
           ))}
+          <button
+            type="button"
+            className="mobile-link w-full text-left"
+            onClick={(event) => {
+              setOpen(false);
+              openReservation(
+                event.currentTarget.closest("header")?.querySelector<HTMLElement>(".menu-toggle"),
+              );
+            }}
+            aria-haspopup="dialog"
+            data-cta="reserva"
+          >
+            Reservar uma mesa
+          </button>
           <a
-            href={brand.instagram}
+            href={site.links.instagram}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="mobile-link flex items-center gap-3"
+            data-cta="instagram"
           >
             <Instagram aria-hidden="true" size={22} /> Instagram
           </a>
@@ -207,9 +143,10 @@ export function SiteHeader() {
   );
 }
 
-/** Mobile: both doors pinned to the thumb once the hero's own buttons scroll away. */
-function DoorBar({ heroId }: { heroId: string }) {
+/** Mobile: three quiet actions pinned to the thumb once the hero's own buttons scroll away. */
+function ActionBar({ heroId }: { heroId: string }) {
   const [show, setShow] = useState(false);
+  const { openReservation } = useReservation();
 
   useEffect(() => {
     const hero = document.getElementById(heroId);
@@ -222,14 +159,39 @@ function DoorBar({ heroId }: { heroId: string }) {
   }, [heroId]);
 
   return (
-    <div className={`door-bar md:hidden ${show ? "door-bar-in" : ""}`} inert={!show}>
-      <a href={brand.menu} target="_blank" rel="noreferrer" className="door door-paper">
-        <ShoppingBag aria-hidden="true" /> Pedir agora
+    <nav
+      aria-label="Ações rápidas"
+      className={`door-bar md:hidden ${show ? "door-bar-in" : ""}`}
+      inert={!show}
+    >
+      <a
+        href={site.links.menu}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="door door-paper"
+        data-cta="pedido"
+      >
+        <ShoppingBag aria-hidden="true" /> Pedir
       </a>
-      <a href={brand.google} target="_blank" rel="noreferrer" className="door door-flag">
-        <MapPin aria-hidden="true" /> Como chegar
+      <button
+        type="button"
+        className="door door-ink"
+        onClick={(event) => openReservation(event.currentTarget)}
+        aria-haspopup="dialog"
+        data-cta="reserva"
+      >
+        <CalendarDays aria-hidden="true" /> Reservar
+      </button>
+      <a
+        href={site.links.google}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="door door-flag"
+        data-cta="rotas"
+      >
+        <MapPin aria-hidden="true" /> Rotas
       </a>
-    </div>
+    </nav>
   );
 }
 
@@ -352,7 +314,7 @@ function HeroMedia({ playing }: { playing: boolean }) {
   );
 }
 
-const tagline = ["Muito", "sabor.", "Muito", "recheio."];
+const offer = ["Rodízio", "À la carte", "Delivery", "Pizzas doces", "Carta de vinhos"];
 
 function Hero() {
   const today = useDateStamp();
@@ -384,10 +346,7 @@ function Hero() {
       <div className="relative border-b border-newsprint/12">
         <p className="mx-auto flex max-w-screen-2xl items-center justify-between gap-6 px-4 py-2.5 font-label text-[0.95rem] uppercase tracking-[0.14em] text-newsprint/80 md:px-8">
           <span data-seq="stamp">{today}</span>
-          <span data-seq="stamp" className="hidden sm:inline">
-            Francisco Beltrão · Paraná
-          </span>
-          <span data-seq="stamp">Salgadas &amp; doces</span>
+          <span data-seq="stamp">Francisco Beltrão · Paraná</span>
         </p>
       </div>
 
@@ -396,12 +355,12 @@ function Hero() {
           <h1 id="titulo" className="hero-title">
             <span className="mask">
               <span data-seq="line" className="block">
-                Tem pizza.
+                Mais que pizza.
               </span>
             </span>
             <span className="mask">
               <span data-seq="line" className="hero-and block">
-                e tem
+                Uma experiência
               </span>
             </span>
             <span className="mask">
@@ -415,44 +374,40 @@ function Hero() {
             <span data-seq="rule" className="flex-1 origin-left bg-newsprint" />
             <span data-seq="rule" className="flex-1 origin-left bg-tomato" />
           </div>
-          <p className="mt-6 font-label text-2xl uppercase tracking-[0.08em] text-newsprint md:text-[1.7rem]">
-            <span className="sr-only">Muito sabor. Muito recheio.</span>
-            {tagline.map((word, index) => (
-              <span
-                key={index}
-                data-seq="word"
-                aria-hidden="true"
-                className="mr-[0.3em] inline-block"
-              >
-                {word}
-              </span>
-            ))}
-          </p>
           <p
             data-seq="body"
-            className="mt-3 max-w-[44ch] text-base leading-relaxed text-newsprint/90 md:text-lg"
+            className="mt-6 max-w-[52ch] text-base leading-relaxed text-newsprint/90 md:text-lg"
           >
-            Massa artesanal, borda dourada e muito recheio. Peça em casa ou venha viver a La
-            Preferitta em Francisco Beltrão.
+            Rodízio, à la carte, pizzas doces que são assinatura da casa e uma carta de vinhos para
+            completar a experiência. Venha para o salão ou peça para aproveitar em casa.
           </p>
-          <div className="mt-8 grid max-w-xl grid-cols-2 gap-2 sm:gap-3">
-            <div data-seq="door">
-              <OrderTarja className="tarja-compact h-full" />
+          <div className="hero-ctas mt-8">
+            <div data-seq="door" className="hero-cta-main">
+              <ReserveTarja className="tarja-compact h-full" />
             </div>
             <div data-seq="door">
-              <VisitTarja className="tarja-compact h-full" />
+              <OrderTarja
+                tone="flag"
+                label="Pedir delivery"
+                note="Cardápio online"
+                className="tarja-compact h-full"
+              />
+            </div>
+            <div data-seq="door">
+              <VisitTarja tone="line" className="tarja-compact h-full" />
             </div>
           </div>
           <p data-seq="body" className="hero-facts mt-5">
-            <span>Delivery e retirada</span>
-            <span aria-hidden="true" className="max-sm:hidden">
-              •
-            </span>
-            <span>Atendimento no salão</span>
-            <span aria-hidden="true" className="max-sm:hidden">
-              •
-            </span>
-            <span>Francisco Beltrão</span>
+            {offer.map((item, index) => (
+              <span key={item} className="contents">
+                {index > 0 && (
+                  <span aria-hidden="true" className="max-sm:hidden">
+                    •
+                  </span>
+                )}
+                <span>{item}</span>
+              </span>
+            ))}
           </p>
         </div>
 
@@ -510,70 +465,65 @@ function SizePizza({ letter, slices }: { letter: string; slices: number }) {
 
 function Sizes() {
   const [picked, setPicked] = useState<string | null>(null);
-  const chosen = sizes.find(([size]) => size === picked);
+  const chosen = sizeInfo.find((item) => item.size === picked);
 
   return (
     <Poster id="tamanhos" labelledBy="tamanhos-titulo" className="bg-flag text-newsprint">
       <div className="mx-auto max-w-screen-2xl px-4 py-16 md:px-8 md:py-24">
         <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
           <h2 id="tamanhos-titulo" className="pass pass-3 section-title">
-            Escolha o tamanho da fome
+            Do tamanho da sua fome — e da sua companhia
           </h2>
           <p className="pass pass-3 max-w-[42ch] text-lg leading-relaxed text-newsprint/90 md:text-right">
-            Desenhadas em escala: a GG tem 40 cm e 16 fatias. Toque, clique ou use o teclado para
-            abrir as fatias.
+            Escolha entre P, M, G e GG. A maior tem 40 centímetros, 16 fatias e permite combinar até
+            quatro sabores.
           </p>
         </div>
         <ul className="pass pass-1 sizes mt-12 md:mt-16">
-          {sizes.map(([size, diameter, slices]) => {
-            const d = Number.parseInt(diameter, 10);
-            const n = Number.parseInt(slices, 10);
-            const active = picked === size;
+          {sizeInfo.map((item) => {
+            const active = picked === item.size;
             return (
-              <li key={size} className="size-cell">
+              <li key={item.size} className="size-cell">
                 <button
                   type="button"
                   className={`size ${active ? "is-active" : ""}`}
                   aria-pressed={active}
-                  aria-label={`Tamanho ${size}: ${diameter}, ${slices}`}
-                  onClick={() => setPicked(active ? null : size)}
+                  aria-label={`Tamanho ${item.size}: ${item.diameter} cm, ${item.slices} fatias, ${flavorsLabel(item.flavors)}`}
+                  onClick={() => setPicked(active ? null : item.size)}
                 >
-                  <span className="size-disc" style={{ "--d": d } as CSSProperties}>
-                    <SizePizza letter={size} slices={n} />
+                  <span className="size-disc" style={{ "--d": item.diameter } as CSSProperties}>
+                    <SizePizza letter={item.size} slices={item.slices} />
                   </span>
                   <span className="size-meta" aria-hidden="true">
-                    <span className="size-cm">{diameter}</span>
-                    <span className="size-slices">{slices}</span>
+                    <span className="size-cm">{item.diameter} cm</span>
+                    <span className="size-slices">{item.slices} fatias</span>
+                    <span className="size-flavors">{flavorsLabel(item.flavors)}</span>
                   </span>
                 </button>
               </li>
             );
           })}
         </ul>
-        <div className="size-pick mt-10 md:mt-14" aria-live="polite">
-          {chosen ? (
-            <>
-              <p className="font-label text-2xl uppercase tracking-[0.08em]">
-                Tamanho {chosen[0]} · {chosen[1]} · {chosen[2]}
-              </p>
-              <OrderTarja
-                tone="paper"
-                label="Pedir neste tamanho"
-                className="sm:w-auto sm:min-w-[20rem]"
-              />
-            </>
-          ) : (
-            <p className="text-lg text-newsprint/85">
-              Escolha um tamanho para ver as fatias. O pedido é feito pelo cardápio online.
-            </p>
-          )}
+        <div className="size-pick mt-10 md:mt-14">
+          <p className="font-label text-2xl uppercase tracking-[0.08em]" aria-live="polite">
+            {chosen
+              ? `Tamanho ${chosen.size} · ${chosen.diameter} cm · ${chosen.slices} fatias · ${flavorsLabel(chosen.flavors)}`
+              : "Toque ou clique num tamanho para abrir as fatias"}
+          </p>
+          <OrderTarja
+            tone="paper"
+            label="Escolher minha pizza"
+            note="Cardápio online"
+            cta="escolher-pizza"
+            className="sm:w-auto sm:min-w-[20rem]"
+          />
         </div>
       </div>
     </Poster>
   );
 }
 
-function Mural() {
+function InstagramWall() {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const onScreen = useOnScreen(ref);
@@ -582,13 +532,19 @@ function Mural() {
   const strip = reduce ? mural : [...mural, ...mural];
 
   return (
-    <Poster id="mural" labelledBy="mural-titulo" className="bg-newsprint text-ink">
+    <Poster id="instagram" labelledBy="instagram-titulo" className="bg-newsprint text-ink">
       <div className="mx-auto max-w-screen-2xl px-4 pt-16 md:px-8 md:pt-24">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 id="mural-titulo" className="pass pass-3 section-title">
-            Mural da Preferitta
-          </h2>
-          <div className="pass pass-3 flex items-center gap-3">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <div>
+            <h2 id="instagram-titulo" className="pass pass-3 section-title">
+              Acompanhe a La Preferitta
+            </h2>
+            <p className="pass pass-3 mt-5 max-w-[48ch] text-lg leading-relaxed text-ink/80">
+              Novos sabores, bastidores, rodízio e momentos que acontecem por aqui. Siga a La
+              Preferitta e descubra a próxima vontade.
+            </p>
+          </div>
+          <div className="pass pass-3 flex flex-wrap items-center gap-3">
             {!reduce && (
               <button
                 type="button"
@@ -601,14 +557,14 @@ function Mural() {
                 <span>{paused ? "Retomar" : "Pausar"}</span>
               </button>
             )}
-            <a
-              href={brand.instagram}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-link flex min-h-11 items-center gap-2 font-label text-2xl tracking-[0.06em]"
-            >
-              <Instagram aria-hidden="true" size={20} /> {brand.instagramLabel}
-            </a>
+            <Tarja
+              href={site.links.instagram}
+              icon={<Instagram />}
+              label="Seguir no Instagram"
+              note={site.links.instagramLabel}
+              tone="ink"
+              cta="instagram"
+            />
           </div>
         </div>
       </div>
@@ -631,9 +587,9 @@ function Mural() {
                 inert={copy || undefined}
               >
                 <a
-                  href={brand.instagram}
+                  href={site.links.instagram}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label={`${photo.alt} — ver no Instagram`}
                 >
                   <img
@@ -657,100 +613,39 @@ function Mural() {
   );
 }
 
-function Doors() {
-  return (
-    <Poster id="portas" labelledBy="portas-titulo" className="bg-ink text-newsprint" grain={false}>
-      <div className="mx-auto max-w-screen-2xl px-4 pt-16 md:px-8 md:pt-24">
-        <h2 id="portas-titulo" className="pass pass-3 section-title max-w-[16ch]">
-          Hoje é em casa ou no salão?
-        </h2>
-      </div>
-      <div className="mx-auto mt-10 grid max-w-screen-2xl gap-px pb-10 md:mt-14 md:grid-cols-2 md:px-8 md:pb-24">
-        <article
-          id="delivery"
-          aria-labelledby="delivery-titulo"
-          className="pass pass-1 paper anchor-target relative flex flex-col gap-6 bg-tomato-deep p-6 md:p-10 lg:p-14"
-        >
-          <h3
-            id="delivery-titulo"
-            className="font-didone text-[clamp(3rem,6vw,5.5rem)] leading-none"
-          >
-            Em casa
-          </h3>
-          <p className="max-w-[38ch] text-lg leading-relaxed text-newsprint/90">
-            Delivery ou retirada pelo cardápio online. Horários de atendimento e sabores do dia
-            aparecem por lá.
-          </p>
-          {isFilled(brand.whatsapp) && (
-            <p className="font-label text-xl tracking-[0.06em]">WhatsApp: {brand.whatsapp}</p>
-          )}
-          <OrderTarja className="mt-auto sm:max-w-sm" />
-        </article>
-        <article
-          id="salao"
-          aria-labelledby="salao-titulo"
-          className="pass pass-2 paper anchor-target relative grid gap-6 bg-flag p-6 sm:grid-cols-[minmax(0,1fr)_10rem] md:p-10 lg:grid-cols-[minmax(0,1fr)_13rem] lg:p-14"
-        >
-          <div className="flex flex-col gap-6">
-            <h3
-              id="salao-titulo"
-              className="font-didone text-[clamp(3rem,6vw,5.5rem)] leading-none"
-            >
-              No salão
-            </h3>
-            <address className="font-label text-2xl uppercase leading-snug tracking-[0.06em]">
-              {brand.addressLines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </address>
-            {isFilled(brand.hours) && (
-              <p className="flex items-center gap-2 font-label text-xl tracking-[0.06em]">
-                <Clock aria-hidden="true" size={18} /> {brand.hours}
-              </p>
-            )}
-            <VisitTarja tone="paper" className="mt-auto sm:max-w-sm" />
-          </div>
-          <img
-            src={brand.local}
-            alt="Fachada da La Preferitta à noite, com o letreiro iluminado"
-            width={382}
-            height={510}
-            loading="lazy"
-            decoding="async"
-            className="cliche-plain aspect-[382/510] w-40 justify-self-end rotate-[-1.5deg] object-cover sm:w-full sm:justify-self-auto"
-          />
-        </article>
-      </div>
-    </Poster>
-  );
-}
-
 export function HomePage() {
   useEffect(() => installSmoothAnchors(), []);
 
   return (
     <div className="poster-site bg-ink">
-      <a href="#conteudo" className="skip-link">
-        Pular para o conteúdo
-      </a>
-      <SiteLoader />
-      <SiteHeader />
-      <main id="conteudo" tabIndex={-1}>
-        <Hero />
-        <MenuSection />
-        <Sizes />
-        <Mural />
-        <Doors />
-      </main>
-      <SiteFooter />
-      <DoorBar heroId="inicio" />
+      <ReservationProvider>
+        <a href="#conteudo" className="skip-link">
+          Pular para o conteúdo
+        </a>
+        <SiteLoader />
+        <SiteHeader />
+        <main id="conteudo" tabIndex={-1}>
+          <Hero />
+          <Experience />
+          <MenuSection />
+          <Sizes />
+          <Wines />
+          <Salon />
+          <Reviews />
+          <Visit />
+          <InstagramWall />
+          <Faq />
+          <Loyalty />
+        </main>
+        <SiteFooter />
+        <ActionBar heroId="inicio" />
+      </ReservationProvider>
     </div>
   );
 }
 
 export function SiteFooter() {
+  const { openReservation } = useReservation();
   return (
     <footer className="bg-ink pb-24 text-newsprint md:pb-0">
       <Tricolor className="h-[3px]" />
@@ -767,21 +662,48 @@ export function SiteFooter() {
         <div>
           <p className="font-didone text-4xl leading-tight md:text-5xl">La Preferitta Pizzaria</p>
           <p className="mt-3 font-label text-xl tracking-[0.05em] text-newsprint/80">
-            {brand.address}
+            {site.address.full}
+          </p>
+          <p className="mt-1 font-label text-xl tracking-[0.05em] text-newsprint/80">
+            <a href={telHref} className="inline-link" data-cta="ligar">
+              {site.phone.display}
+            </a>
           </p>
         </div>
         <nav aria-label="Links do rodapé" className="grid gap-1 md:justify-items-end">
-          <a className="nav-link footer-link" href={brand.menu} target="_blank" rel="noreferrer">
+          <a
+            className="nav-link footer-link"
+            href={site.links.menu}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cta="pedido"
+          >
             Pedir agora
           </a>
-          <a className="nav-link footer-link" href={brand.google} target="_blank" rel="noreferrer">
+          <button
+            type="button"
+            className="nav-link footer-link"
+            onClick={(event) => openReservation(event.currentTarget)}
+            aria-haspopup="dialog"
+            data-cta="reserva"
+          >
+            Reservar uma mesa
+          </button>
+          <a
+            className="nav-link footer-link"
+            href={site.links.google}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cta="rotas"
+          >
             Como chegar
           </a>
           <a
             className="nav-link footer-link"
-            href={brand.instagram}
+            href={site.links.instagram}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            data-cta="instagram"
           >
             Instagram
           </a>

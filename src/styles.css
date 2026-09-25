@@ -483,12 +483,12 @@
     inset: 0;
     translate: 0 105%;
   }
-  a:hover .roll-a,
-  a:focus-visible .roll-a {
+  :is(a, button):hover .roll-a,
+  :is(a, button):focus-visible .roll-a {
     translate: 0 -105%;
   }
-  a:hover .roll-b,
-  a:focus-visible .roll-b {
+  :is(a, button):hover .roll-b,
+  :is(a, button):focus-visible .roll-b {
     translate: 0 0;
   }
 
@@ -1336,7 +1336,13 @@
       .size-disc,
       .size-meta,
       .logo-link img,
-      .mobile-link
+      .mobile-link,
+      .occasion-art img,
+      .wine-bottle,
+      .salon-photo img,
+      .menu-full svg,
+      .rsv-close,
+      .rsv-back svg
     ) {
     translate: none !important;
     rotate: none !important;
@@ -1772,5 +1778,794 @@
     font-size: 1.1rem;
     letter-spacing: 0.12em;
     color: oklch(0.17 0.006 50 / 0.65);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Experiência, vinhos, salão, avaliações, visite-nos, FAQ, reserva    */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* ---- hero actions ---- */
+  .hero-ctas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    max-width: 52rem;
+  }
+  .hero-cta-main {
+    grid-column: 1 / -1;
+  }
+  @media (min-width: 640px) {
+    .hero-ctas {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+    .hero-cta-main {
+      grid-column: auto;
+    }
+  }
+
+  button.tarja {
+    width: 100%;
+    cursor: pointer;
+  }
+  /* Line tab on a light surface. */
+  .tarja-on-light {
+    --fg: var(--ink);
+    --line: oklch(0.17 0.006 50 / 0.45);
+    --fill: var(--ink);
+    --fill-fg: var(--newsprint);
+  }
+
+  /* ---- menu actions ---- */
+  .menu-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+    margin-top: 2rem;
+  }
+  .menu-actions .menu-open {
+    margin-top: 0;
+  }
+  .menu-full {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 3.25rem;
+    font-family: var(--font-label);
+    font-size: 1.35rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: linear-gradient(currentColor 0 0) left calc(100% - 0.7rem) / 100% 1px no-repeat;
+    transition:
+      background-size 800ms var(--ease-out),
+      color 500ms ease;
+  }
+  .menu-full svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    transition: translate 800ms var(--ease-out);
+  }
+  .menu-full:hover {
+    background-size: 0 1px;
+    background-position: right calc(100% - 0.7rem);
+    color: var(--tomato-deep);
+  }
+  .menu-full:hover svg {
+    translate: 3px -3px;
+  }
+
+  /* ---- sizes ---- */
+  .size-flavors {
+    font-size: 1.05rem;
+    color: oklch(0.965 0.01 85 / 0.85);
+  }
+
+  /* ---- experiência ---- */
+  .occasions {
+    display: grid;
+    gap: 3rem 2rem;
+  }
+  @media (min-width: 640px) {
+    .occasions {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .occasions {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 2.5rem;
+    }
+  }
+  .occasion {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1.25rem;
+    border-top: 1px solid oklch(0.965 0.01 85 / 0.2);
+  }
+  .occasion-art {
+    position: relative;
+    height: 11rem;
+    margin-bottom: 1.5rem;
+  }
+  .occasion-art img {
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    width: auto;
+    filter: drop-shadow(0 14px 16px oklch(0 0 0 / 0.45));
+    transition: translate 1000ms var(--ease-out);
+  }
+  .occasion-art-1 img {
+    left: 0;
+  }
+  .occasion-art-3 img:nth-child(1) {
+    left: 0;
+    height: 82%;
+  }
+  .occasion-art-3 img:nth-child(2) {
+    left: 22%;
+    z-index: 1;
+  }
+  .occasion-art-3 img:nth-child(3) {
+    left: 48%;
+    height: 82%;
+  }
+  .occasion:hover .occasion-art img {
+    translate: 0 -6px;
+  }
+  .occasion:hover .occasion-art img:nth-child(2) {
+    translate: 0 -10px;
+  }
+  .occasion-title {
+    font-family: var(--font-didone);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 2.6vw, 2.4rem);
+    line-height: 1.05;
+  }
+  .occasion-text {
+    margin-top: 0.75rem;
+    max-width: 36ch;
+    line-height: 1.6;
+    color: oklch(0.965 0.01 85 / 0.82);
+  }
+  .occasion-detail {
+    margin-top: auto;
+    padding-top: 1rem;
+    font-family: var(--font-label);
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tomato-light);
+  }
+
+  /* ---- vinhos ---- */
+  .wines {
+    display: grid;
+    gap: 3rem 2rem;
+  }
+  @media (min-width: 768px) {
+    .wines {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .wine {
+    display: flex;
+    flex-direction: column;
+  }
+  .wine-shelf {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 20rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid oklch(0.965 0.01 85 / 0.25);
+    background: radial-gradient(
+      ellipse 45% 12% at 50% 96%,
+      oklch(0.12 0.03 22 / 0.55),
+      transparent 70%
+    );
+  }
+  .wine-bottle {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 18px oklch(0.12 0.03 22 / 0.5));
+    transition: translate 1100ms var(--ease-out);
+  }
+  .wine:hover .wine-bottle {
+    translate: 0 -8px;
+  }
+  .wine-style {
+    font-family: var(--font-label);
+    font-size: 1.1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: oklch(0.965 0.01 85 / 0.8);
+  }
+  .wine-name {
+    margin-top: 0.35rem;
+    font-family: var(--font-didone);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+    line-height: 1.05;
+  }
+  .wine-note {
+    margin-top: 0.75rem;
+    max-width: 34ch;
+    line-height: 1.6;
+    color: oklch(0.965 0.01 85 / 0.88);
+  }
+
+  /* ---- salão ---- */
+  .salon-photo {
+    overflow: hidden;
+    border: 0.45rem solid var(--newsprint);
+    box-shadow: 0 30px 60px -30px oklch(0 0 0 / 0.8);
+  }
+  .salon-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1376 / 768;
+    object-fit: cover;
+    transition: scale 1600ms var(--ease-out);
+  }
+  .salon-photo:hover img {
+    scale: 1.03;
+  }
+
+  /* ---- avaliações ---- */
+  .rating {
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid oklch(0.17 0.006 50 / 0.2);
+    background: oklch(0.99 0.006 85 / 0.6);
+  }
+  .rating-number {
+    font-family: var(--font-didone);
+    font-weight: 500;
+    font-size: clamp(4.5rem, 10vw, 7.5rem);
+    line-height: 0.9;
+  }
+  .rating-of {
+    display: block;
+    margin-top: 0.75rem;
+    font-family: var(--font-label);
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .rating-count {
+    margin-top: 0.75rem;
+    color: oklch(0.17 0.006 50 / 0.8);
+  }
+  .stars {
+    position: relative;
+    display: inline-block;
+    margin-top: 1rem;
+  }
+  .stars-base,
+  .stars-fill {
+    display: flex;
+    gap: 0.25rem;
+  }
+  .stars svg {
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .stars-base svg {
+    color: oklch(0.17 0.006 50 / 0.35);
+  }
+  .stars-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .stars-fill svg {
+    color: var(--tomato-deep);
+    fill: var(--tomato-deep);
+  }
+
+  /* ---- horários ---- */
+  .hours {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.05rem;
+  }
+  .hours-caption {
+    caption-side: top;
+    padding-bottom: 0.75rem;
+    text-align: left;
+    font-family: var(--font-label);
+    font-size: 1.3rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .hours tr {
+    border-top: 1px solid oklch(0.965 0.01 85 / 0.2);
+  }
+  .hours tr:last-child {
+    border-bottom: 1px solid oklch(0.965 0.01 85 / 0.2);
+  }
+  .hours th,
+  .hours td {
+    padding: 0.75rem 0;
+    text-align: left;
+    font-weight: 400;
+    vertical-align: middle;
+  }
+  .hours td:nth-child(2) {
+    font-variant-numeric: tabular-nums;
+  }
+  .hours td:last-child {
+    text-align: right;
+  }
+  .hours tr.is-today th,
+  .hours tr.is-today td {
+    font-weight: 600;
+  }
+  .hours-today {
+    font-family: var(--font-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .hours-tag {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border: 1px solid oklch(0.965 0.01 85 / 0.6);
+    font-family: var(--font-label);
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ---- perguntas frequentes ---- */
+  .faq-item {
+    border-top: 1px solid oklch(0.965 0.01 85 / 0.18);
+  }
+  .faq-item:last-child {
+    border-bottom: 1px solid oklch(0.965 0.01 85 / 0.18);
+  }
+  .faq-q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 3.75rem;
+    padding-block: 0.9rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-didone);
+    font-weight: 500;
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    line-height: 1.25;
+    transition: color 400ms ease;
+  }
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+  .faq-q:hover {
+    color: var(--tomato-light);
+  }
+  .faq-icon {
+    flex: none;
+    width: 1.4rem;
+    height: 1.4rem;
+    transition: transform 600ms var(--ease-out);
+  }
+  .faq-item[open] .faq-icon {
+    transform: rotate(180deg);
+  }
+  .faq-a {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 64ch;
+    padding-bottom: 1.4rem;
+    line-height: 1.65;
+    color: oklch(0.965 0.01 85 / 0.85);
+  }
+  .faq-a a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    width: fit-content;
+    color: var(--newsprint);
+  }
+
+  /* ---- mobile action bar: three doors ---- */
+  .door-bar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .door-ink {
+    background: var(--ink);
+    color: var(--newsprint);
+    border-inline: 1px solid oklch(0.965 0.01 85 / 0.18);
+  }
+
+  /* ---------------------------------------------------------------- reserva */
+  html.rsv-lock {
+    overflow: hidden;
+  }
+  .rsv {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    overflow: hidden;
+  }
+  .rsv::backdrop {
+    background: transparent;
+  }
+  .rsv-scrim {
+    position: absolute;
+    inset: 0;
+    background: oklch(0.12 0.006 50 / 0.62);
+  }
+  .rsv-panel {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    flex-direction: column;
+    max-height: min(92dvh, 46rem);
+    padding: 0.75rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--newsprint);
+    box-shadow: 0 -24px 60px -20px oklch(0 0 0 / 0.5);
+    font-family: var(--font-body);
+  }
+  @media (min-width: 768px) {
+    .rsv-panel {
+      inset: 50% auto auto 50%;
+      width: min(30rem, calc(100vw - 3rem));
+      max-height: min(90dvh, 44rem);
+      padding: 1.75rem 2rem 2rem;
+      translate: -50% -50%;
+      box-shadow: 0 40px 80px -30px oklch(0 0 0 / 0.6);
+    }
+  }
+  .rsv-grip {
+    align-self: center;
+    width: 2.5rem;
+    height: 3px;
+    margin-bottom: 0.75rem;
+    background: oklch(0.17 0.006 50 / 0.2);
+  }
+  @media (min-width: 768px) {
+    .rsv-grip {
+      display: none;
+    }
+  }
+  .rsv-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .rsv-title {
+    font-family: var(--font-label);
+    font-size: 1.25rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .rsv-desc {
+    margin-top: 0.3rem;
+    max-width: 40ch;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: oklch(0.17 0.006 50 / 0.72);
+  }
+  .rsv-close {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: -0.4rem -0.6rem 0 0;
+    color: var(--ink);
+    transition: rotate 500ms var(--ease-out);
+  }
+  .rsv-close:hover {
+    rotate: 90deg;
+  }
+  .rsv-close svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .rsv-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.1rem;
+  }
+  .rsv-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    transition: background-color 300ms ease;
+  }
+  .rsv-dot.is-on {
+    background: var(--ink);
+  }
+  .rsv-progress-text {
+    margin-left: 0.4rem;
+    font-family: var(--font-label);
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    color: oklch(0.17 0.006 50 / 0.65);
+  }
+  .rsv-summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    color: oklch(0.17 0.006 50 / 0.78);
+  }
+  .rsv-summary p {
+    flex: 1;
+  }
+  .rsv-back {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-left: -0.75rem;
+  }
+  .rsv-back svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    transition: translate 500ms var(--ease-out);
+  }
+  .rsv-back:hover svg {
+    translate: -3px 0;
+  }
+  .rsv-change {
+    min-height: 2.75rem;
+    padding-inline: 0.25rem;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .rsv-body {
+    overflow: hidden;
+  }
+  .rsv-body > div {
+    padding-top: 1rem;
+  }
+  .rsv-q {
+    font-family: var(--font-didone);
+    font-weight: 500;
+    font-size: clamp(1.6rem, 5vw, 1.9rem);
+    line-height: 1.15;
+  }
+  .rsv-q:focus {
+    outline: none;
+  }
+
+  /* calendar */
+  .rsv-cal {
+    margin-top: 1rem;
+  }
+  .rsv-cal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+  }
+  .rsv-month {
+    font-family: var(--font-label);
+    font-size: 1.15rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .rsv-nav {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .rsv-nav svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .rsv-nav:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+  .rsv-week {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+  .rsv-week-head span {
+    padding-block: 0.4rem;
+    text-align: center;
+    font-family: var(--font-label);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: oklch(0.17 0.006 50 / 0.6);
+  }
+  .rsv-day {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 2.9rem;
+    font-variant-numeric: tabular-nums;
+    font-size: 1rem;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+  }
+  .rsv-day.is-available:hover {
+    background: oklch(0.17 0.006 50 / 0.07);
+  }
+  .rsv-day.is-today::after {
+    content: "";
+    position: absolute;
+    bottom: 0.45rem;
+    left: 50%;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 999px;
+    background: currentColor;
+    translate: -50% 0;
+  }
+  .rsv-day.is-selected {
+    background: var(--ink);
+    color: var(--newsprint);
+  }
+  .rsv-day:disabled {
+    cursor: not-allowed;
+    color: oklch(0.17 0.006 50 / 0.38);
+  }
+  .rsv-day.is-closed,
+  .rsv-day.is-past {
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+  .rsv-legend {
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: oklch(0.17 0.006 50 / 0.65);
+  }
+
+  /* times */
+  .rsv-slots {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 1.1rem;
+  }
+  .rsv-slot,
+  .rsv-person {
+    display: grid;
+    place-items: center;
+    min-height: 3rem;
+    border: 1px solid oklch(0.17 0.006 50 / 0.3);
+    font-family: var(--font-label);
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease;
+  }
+  .rsv-slot:hover:not(:disabled),
+  .rsv-person:hover {
+    border-color: var(--ink);
+  }
+  .rsv-slot.is-selected,
+  .rsv-person.is-selected {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--newsprint);
+  }
+  .rsv-slot:disabled {
+    cursor: not-allowed;
+    color: oklch(0.17 0.006 50 / 0.38);
+    border-style: dashed;
+    text-decoration: line-through;
+  }
+
+  /* people */
+  .rsv-people {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin-top: 1.1rem;
+  }
+  .rsv-people-now {
+    margin-top: 0.9rem;
+    font-family: var(--font-didone);
+    font-size: 1.35rem;
+  }
+  .rsv-hint {
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--tomato-deep);
+  }
+
+  /* empty */
+  .rsv-empty-text {
+    margin-top: 0.6rem;
+    color: oklch(0.17 0.006 50 / 0.78);
+  }
+  .rsv-empty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+  }
+  .rsv-ghost {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.9rem;
+    padding-inline: 1rem;
+    border: 1px solid var(--ink);
+    font-family: var(--font-label);
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition:
+      background-color 300ms ease,
+      color 300ms ease;
+  }
+  .rsv-ghost:hover {
+    background: var(--ink);
+    color: var(--newsprint);
+  }
+
+  /* footer */
+  .rsv-foot {
+    margin-top: 1.4rem;
+  }
+  .rsv-cta {
+    width: 100%;
+    min-height: 3.5rem;
+    background: var(--ink);
+    color: var(--newsprint);
+    font-family: var(--font-label);
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition:
+      background-color 300ms ease,
+      opacity 300ms ease;
+  }
+  .rsv-cta:hover:not(:disabled) {
+    background: var(--flag);
+  }
+  .rsv-cta:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+  }
+  .rsv-note {
+    margin-top: 0.7rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: oklch(0.17 0.006 50 / 0.72);
+  }
+  .rsv-link {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    color: var(--ink);
+  }
+  .rsv :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
   }
 }

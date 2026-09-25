@@ -1,3 +1,5 @@
+import { site } from "@/data/site";
+
 // Fotos reais enviadas pela pizzaria (sem imagens geradas por IA).
 const logo = "/images/logo.webp";
 const logoMono = "/images/logo-mono.webp";
@@ -11,20 +13,20 @@ const pizza3 = { url: "/images/pizza3.webp" };
 const pizza4 = { url: "/images/pizza4.webp" };
 
 export const brand = {
-  name: "La Preferitta Pizzaria",
+  name: site.name,
   city: "Francisco Beltrão — Paraná",
-  instagram: "https://www.instagram.com/lapreferittafb",
-  instagramLabel: "@lapreferittafb",
-  menu: "https://lapreferittafb.wabiz.delivery/",
-  google: "https://share.google/zdNL5OHfrXSkkcTDO",
-  address: "Avenida Júlio Assis Cavalheiro, 2808, Bairro Industrial, Francisco Beltrão — PR",
+  instagram: site.links.instagram,
+  instagramLabel: site.links.instagramLabel,
+  menu: site.links.menu,
+  google: site.links.google,
+  address: site.address.full,
   logo,
   logoMono,
   local: facade,
-  addressLines: ["Av. Júlio Assis Cavalheiro, 2808", "Bairro Industrial", "Francisco Beltrão — PR"],
-  // Placeholders: preencha com a informação real. Enquanto começarem com "[", o site não os mostra.
-  hours: "[HORÁRIO]",
-  whatsapp: "[WHATSAPP]",
+  /** Fachada em alta, paisagem (seção do salão e imagem social). */
+  localWide: "/images/local.webp",
+  localWideSm: "/images/local-sm.webp",
+  addressLines: site.address.lines,
 } as const;
 
 /** True once a placeholder like "[HORÁRIO]" has been replaced with real information. */

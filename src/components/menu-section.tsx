@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
 import {
   AnimatePresence,
   MotionConfig,
@@ -18,6 +18,7 @@ import {
 } from "react";
 import { OrderTarja } from "@/components/tarja";
 import { cardapio, isFilled, menuImage, splitIngredients, type MenuItem } from "@/data/brand";
+import { site } from "@/data/site";
 
 // One easing family for the whole menu: long, soft deceleration.
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -153,8 +154,8 @@ function MenuList({
         </motion.h3>
         <ul className="menu-rows">{doces.map(row)}</ul>
         <motion.p variants={rowVariants} className="menu-note">
-          Escolha um sabor para ver a pizza na mesa. O pedido é feito pelo cardápio online, com
-          delivery ou retirada.
+          Esta é uma seleção de destaques. O cardápio completo, com todos os sabores, fica no
+          cardápio online, onde também são feitos os pedidos.
         </motion.p>
         <motion.div variants={rowVariants} className="mt-6">
           <OrderTarja tone="ink" className="sm:max-w-sm" />
@@ -411,29 +412,44 @@ export function MenuSection() {
     <MotionConfig reducedMotion="never">
       <section
         ref={sectionRef}
-        id="sabores"
+        id="cardapio"
         aria-labelledby="cardapio-titulo"
         className="menu-section paper relative bg-newsprint text-ink"
       >
         <div className="mx-auto grid max-w-screen-2xl items-end gap-10 px-4 pb-10 pt-16 md:grid-cols-[minmax(0,1fr)_minmax(0,27rem)] md:px-8 md:pb-14 md:pt-24">
           <div>
             <h2 id="cardapio-titulo" className="section-title">
-              Nosso cardápio
+              Conheça alguns dos sabores que representam a casa
             </h2>
-            <p className="mt-5 max-w-[42ch] text-lg leading-relaxed text-ink/80">
-              Dez sabores da casa, oito salgados e dois doces. Abra o cardápio e escolha um para ver
-              a pizza chegar à mesa.
+            <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-ink/80">
+              Dos clássicos às criações mais ousadas, selecionamos dez favoritos — oito salgados e
+              dois doces — para abrir o apetite. Para conhecer todas as opções, acesse o cardápio
+              completo.
             </p>
-            <button
-              type="button"
-              className={`menu-open ${open ? "is-open" : ""}`}
-              aria-expanded={open}
-              aria-controls="cardapio-painel"
-              onClick={toggle}
-            >
-              <span className="menu-open-label">{open ? "Fechar cardápio" : "Abrir cardápio"}</span>
-              <ChevronDown aria-hidden="true" strokeWidth={1.2} className="menu-open-icon" />
-            </button>
+            <div className="menu-actions">
+              <button
+                type="button"
+                className={`menu-open ${open ? "is-open" : ""}`}
+                aria-expanded={open}
+                aria-controls="cardapio-painel"
+                onClick={toggle}
+              >
+                <span className="menu-open-label">
+                  {open ? "Fechar os destaques" : "Explorar os destaques"}
+                </span>
+                <ChevronDown aria-hidden="true" strokeWidth={1.2} className="menu-open-icon" />
+              </button>
+              <a
+                href={site.links.menu}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="menu-full"
+                data-cta="cardapio"
+              >
+                Ver cardápio completo
+                <ArrowUpRight aria-hidden="true" strokeWidth={1.2} />
+              </a>
+            </div>
           </div>
 
           <div ref={teaserRef} className="menu-teaser" aria-hidden="true">
