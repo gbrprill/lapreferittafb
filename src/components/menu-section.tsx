@@ -21,7 +21,8 @@ import { cardapio, isFilled, menuImage, splitIngredients, type MenuItem } from "
 
 // One easing family for the whole menu: long, soft deceleration.
 const ease = [0.22, 1, 0.36, 1] as const;
-const settle: Transition = { type: "spring", bounce: 0.14, visualDuration: 1.05 };
+// Serving slide: every pizza enters (and is pushed out) with this curve over one second.
+const slide: Transition = { duration: 1, ease: [0.17, 0.67, 0.14, 0.96] };
 
 const salgadas = cardapio.filter((item) => item.kind === "salgada");
 const doces = cardapio.filter((item) => item.kind === "doce");
@@ -87,7 +88,7 @@ function MenuRow({
           src={menuImage(item.slug, "sm")}
           alt=""
           width={440}
-          height={440}
+          height={473}
           loading="lazy"
           decoding="async"
           className="menu-row-thumb"
@@ -165,22 +166,16 @@ function MenuList({
 
 // ---------------------------------------------------------------- detail
 
-// The pizza arrives from beyond the edge of the page, turning as it slides, and
-// settles on the table; it leaves the same way it would be pushed off by hand.
+// The pizza is served from beyond the edge of the page and slides straight to its
+// place on the table, no spin. When the flavor changes, the current board is pushed
+// off the other side on the same curve and at the same time, one full screen apart,
+// so the two never overlap.
 const plateVariants: Variants = {
-  enter: (dir: number) => ({ x: dir > 0 ? "72vw" : "-72vw", rotate: dir > 0 ? 150 : -150 }),
-  center: {
-    x: 0,
-    rotate: 0,
-    transition: { x: settle, rotate: { ...settle, visualDuration: 1.25 } },
-  },
-  exit: (dir: number) => ({
-    x: dir > 0 ? "-72vw" : "72vw",
-    rotate: dir > 0 ? -110 : 110,
-    transition: { duration: 0.75, ease: [0.55, 0, 0.8, 0.3] },
-  }),
-  // Back to the list: the pizza is slid off the table the way it came in.
-  leave: { x: "72vw", rotate: 120, transition: { duration: 0.7, ease: [0.55, 0, 0.8, 0.3] } },
+  enter: (dir: number) => ({ x: dir > 0 ? "100vw" : "-100vw" }),
+  center: { x: 0, transition: slide },
+  exit: (dir: number) => ({ x: dir > 0 ? "-100vw" : "100vw", transition: slide }),
+  // Back to the list: the board slides off the table the way it came in.
+  leave: { x: "100vw", transition: slide },
 };
 
 const copyVariants: Variants = {
@@ -259,23 +254,13 @@ function MenuDetail({
 
       <div className="menu-table">
         <AnimatePresence initial={true} custom={dir} mode="popLayout">
-          <motion.div
-            key={`shadow-${item.slug}`}
-            className="menu-plate-shadow"
-            aria-hidden="true"
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1, transition: { duration: 0.9, ease, delay: 0.45 } }}
-            exit={{ opacity: 0, transition: { duration: 0.25 } }}
-          />
-        </AnimatePresence>
-        <AnimatePresence initial={true} custom={dir} mode="popLayout">
           <motion.img
             key={item.slug}
             src={menuImage(item.slug)}
             srcSet={`${menuImage(item.slug, "sm")} 440w, ${menuImage(item.slug)} 720w`}
-            sizes="(max-width: 1023px) 82vw, 34rem"
+            sizes="(max-width: 1023px) 78vw, 32rem"
             width={720}
-            height={720}
+            height={774}
             alt={`Pizza ${item.name} sobre a tábua da La Preferitta, vista de cima`}
             decoding="async"
             draggable={false}
@@ -298,42 +283,46 @@ function MenuDetail({
       </div>
 
       <div className="menu-copy" aria-live="polite">
-        <AnimatePresence mode="wait" initial={true}>
-          <motion.div
-            key={item.slug}
-            variants={copyVariants}
-            initial="enter"
-            animate={leaving ? "exit" : "center"}
-            exit="exit"
-          >
-            <motion.h3 ref={focusTitle} tabIndex={-1} variants={copyLine} className="menu-name">
-              {item.name}
-            </motion.h3>
-            <motion.p variants={copyLine} className="menu-kind">
-              Pizza {item.kind}
-            </motion.p>
-            <ul className="menu-ingredients" aria-label="Ingredientes">
-              {splitIngredients(item.ingredients).map((ingredient) => (
-                <motion.li key={ingredient} variants={copyLine}>
-                  {ingredient}
-                </motion.li>
-              ))}
-            </ul>
-            {isFilled(item.price) && (
-              <motion.p variants={copyLine} className="menu-price">
-                {item.price}
+        {/* Old and new copy cross-fade in one grid cell, so the height never collapses. */}
+        <div className="menu-copy-stack">
+          <AnimatePresence initial={true}>
+            <motion.div
+              key={item.slug}
+              className="menu-copy-item"
+              variants={copyVariants}
+              initial="enter"
+              animate={leaving ? "exit" : "center"}
+              exit="exit"
+            >
+              <motion.h3 ref={focusTitle} tabIndex={-1} variants={copyLine} className="menu-name">
+                {item.name}
+              </motion.h3>
+              <motion.p variants={copyLine} className="menu-kind">
+                Pizza {item.kind}
               </motion.p>
-            )}
-            <motion.div variants={copyLine} className="mt-8">
-              <OrderTarja
-                tone="ink"
-                label="Pedir esta pizza"
-                ariaLabel={`Pedir esta pizza: ${item.name}`}
-                className="sm:max-w-sm"
-              />
+              <ul className="menu-ingredients" aria-label="Ingredientes">
+                {splitIngredients(item.ingredients).map((ingredient) => (
+                  <motion.li key={ingredient} variants={copyLine}>
+                    {ingredient}
+                  </motion.li>
+                ))}
+              </ul>
+              {isFilled(item.price) && (
+                <motion.p variants={copyLine} className="menu-price">
+                  {item.price}
+                </motion.p>
+              )}
+              <motion.div variants={copyLine} className="mt-8">
+                <OrderTarja
+                  tone="ink"
+                  label="Pedir esta pizza"
+                  ariaLabel={`Pedir esta pizza: ${item.name}`}
+                  className="sm:max-w-sm"
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
-        </AnimatePresence>
+          </AnimatePresence>
+        </div>
 
         <div className="menu-pager">
           <button type="button" className="menu-step" onClick={() => onStep(-1)}>
@@ -456,18 +445,14 @@ export function MenuSection() {
                     src={menuImage(slug, "sm")}
                     alt=""
                     width={440}
-                    height={440}
+                    height={473}
                     loading="lazy"
                     decoding="async"
                     className={`menu-teaser-plate menu-teaser-${i}`}
-                    initial={{ x: "60vw", rotate: 160, opacity: 1 }}
-                    animate={teaserInView ? { x: 0, rotate: 0 } : { x: "60vw", rotate: 160 }}
-                    transition={{ ...settle, delay: 0.15 + i * 0.16 }}
-                    exit={{
-                      x: "60vw",
-                      rotate: -120,
-                      transition: { duration: 0.7, ease: [0.55, 0, 0.8, 0.3], delay: i * 0.06 },
-                    }}
+                    initial={{ x: "100vw" }}
+                    animate={teaserInView ? { x: 0 } : { x: "100vw" }}
+                    transition={{ ...slide, delay: 0.15 + i * 0.18 }}
+                    exit={{ x: "100vw", transition: { ...slide, delay: i * 0.08 } }}
                   />
                 ))}
             </AnimatePresence>

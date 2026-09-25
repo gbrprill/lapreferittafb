@@ -1431,7 +1431,7 @@
   .menu-teaser-plate {
     position: absolute;
     width: 9.5rem;
-    aspect-ratio: 1;
+    aspect-ratio: 713 / 766;
     filter: drop-shadow(0 14px 16px oklch(0.17 0.006 50 / 0.28));
     transition:
       rotate 1400ms var(--ease-out),
@@ -1453,15 +1453,12 @@
     top: 1.5rem;
   }
   .menu-section:has(.menu-open:hover) .menu-teaser-0 {
-    rotate: -18deg;
     translate: -0.4rem 0;
   }
   .menu-section:has(.menu-open:hover) .menu-teaser-1 {
-    rotate: 24deg;
     translate: 0 -0.4rem;
   }
   .menu-section:has(.menu-open:hover) .menu-teaser-2 {
-    rotate: -14deg;
     translate: 0.4rem 0;
   }
   @media (min-width: 768px) {
@@ -1534,7 +1531,8 @@
   }
   .menu-row-thumb {
     width: 3.4rem;
-    height: 3.4rem;
+    height: auto;
+    aspect-ratio: 713 / 766;
     filter: drop-shadow(0 5px 6px oklch(0.17 0.006 50 / 0.25));
     transition:
       rotate 1200ms var(--ease-out),
@@ -1560,8 +1558,7 @@
   }
   .menu-row:hover .menu-row-thumb,
   .menu-row:focus-visible .menu-row-thumb {
-    rotate: 45deg;
-    scale: 1.14;
+    scale: 1.12;
   }
   .menu-row:hover .menu-row-name,
   .menu-row:focus-visible .menu-row-name {
@@ -1619,7 +1616,7 @@
   }
   @media (min-width: 1024px) {
     .menu-detail .menu-table {
-      width: min(100%, 34rem);
+      width: min(100%, 32rem);
     }
     .menu-back {
       flex-direction: column;
@@ -1635,8 +1632,8 @@
   .menu-table {
     position: relative;
     justify-self: center;
-    width: min(82vw, 34rem);
-    aspect-ratio: 1;
+    width: min(78vw, 32rem);
+    aspect-ratio: 713 / 766;
     margin-bottom: 2.5rem;
     touch-action: pan-y;
   }
@@ -1650,19 +1647,7 @@
     -webkit-user-drag: none;
     touch-action: pan-y;
     will-change: transform;
-  }
-  .menu-plate-shadow {
-    position: absolute;
-    inset: 4%;
-    border-radius: 50%;
-    background: radial-gradient(
-      closest-side,
-      oklch(0.17 0.006 50 / 0.42),
-      oklch(0.17 0.006 50 / 0.16) 70%,
-      transparent
-    );
-    translate: 3% 5%;
-    filter: blur(16px);
+    filter: drop-shadow(0 18px 22px oklch(0.17 0.006 50 / 0.3));
   }
   .menu-swipe-hint {
     position: absolute;
@@ -1690,6 +1675,12 @@
 
   .menu-copy {
     max-width: 34rem;
+  }
+  .menu-copy-stack {
+    display: grid;
+  }
+  .menu-copy-item {
+    grid-area: 1 / 1;
   }
   .menu-name {
     font-family: var(--font-didone);

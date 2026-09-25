@@ -1,4 +1,4 @@
 {
-  "prompt": "origin: real photo supplied by La Preferitta (Preferitta/refs/*.jpg), cropped to the round serving board with a circular alpha fitted to the wooden rim (handles removed); no generative edit",
-  "createdAt": "2026-09-25T04:20:22.745Z"
+  "prompt": "origin: client-supplied transparent PNG of the pizza on its serving board (Preferitta/refs/*.png), cropped to a shared canvas and resized; no generative edit",
+  "createdAt": "2026-09-25T20:06:07.521Z"
 }
