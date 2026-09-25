@@ -1,0 +1,123 @@
+{
+  "title": "Escolha o mundo visual da La Preferitta",
+  "question": "O sorteio escolheu o Cartaz de Baile. Fique com ele, pegue uma alternativa ou sorteie de novo.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Cartaz de Baile",
+      "kicker": "THE ROLL",
+      "lineage": "Cartazes lambe-lambe de baile, rodeio e festa de igreja do sudoeste do Paraná",
+      "thesis": "Cada noite de pizza anunciada como o evento da cidade: tipo de madeira gigante, papel colorido, tinta chapada.",
+      "palette": ["#C8252E", "#1F6B3A", "#F7F2E6", "#F2B51C", "#171412"],
+      "materials": ["tipografia de madeira condensada", "papel de cartaz colado na parede", "impressão em duas cores fora de registro"],
+      "viewport": "Um cartaz ocupando a tela: 'LA PREFERITTA' em caixa altíssima, a foto real da pizza como clichê recortado, faixa com 'Hoje à noite · Francisco Beltrão' e dois botões do mesmo tamanho: Pedir agora / Como chegar.",
+      "risk": "Se o acabamento for descuidado, lê como popularesco e perde o lado premium.",
+      "raised": [
+        { "from": "challenger-dongho", "raise": "Cada cor entra como uma passada de impressão separada — vermelho, verde, e o preto por último — na abertura de cada seção." },
+        { "from": "challenger-bench", "raise": "Compromisso de uma tinta: o vermelho do cartaz ocupa pelo menos um terço de toda tela, sem virar detalhe." },
+        { "from": "challenger-daylight", "raise": "O cartaz sabe o dia: a faixa de data mostra o dia da semana real ('Sexta à noite'), sem inventar horário." },
+        { "from": "challenger-hypercard", "raise": "Cada sabor é um cartaz com endereço próprio (#carne-seca), pronto para compartilhar no WhatsApp." }
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Caixa de Pizza",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Caixas de papelão kraft impressas em flexografia de uma cor",
+      "thesis": "O site é a tampa da caixa que chega em casa: kraft, carimbo, uma tinta só.",
+      "palette": ["#B98A5A", "#2A211B", "#C8252E", "#1F6B3A"],
+      "materials": ["papelão kraft ondulado", "flexografia em uma cor", "etiqueta de pedido"],
+      "viewport": "A tampa aberta vista de cima, com a foto da pizza dentro e a etiqueta do pedido como botão.",
+      "risk": "Familiar: é onde muitas pizzarias já chegam, e puxa mais para delivery do que para o salão."
+    },
+    {
+      "id": "challenger-feed",
+      "label": "Feed Vertical",
+      "verdict": "competitive",
+      "lineage": "Reels e stories em tela cheia",
+      "thesis": "Uma pizza por tela, como no Instagram de onde o visitante chega.",
+      "palette": ["#0E0E0E", "#FFFFFF", "#C8252E", "#1F6B3A"],
+      "materials": ["foto em tela cheia", "trilho de ações à direita", "legenda ancorada embaixo"],
+      "viewport": "Carne Seca Especial ocupando a tela inteira, trilho com Pedir / Como chegar / Instagram, próxima pizza a um deslize.",
+      "case": "Público se identifica muito (vem do Instagram); perde em clareza no desktop porque as fotos reais têm ~400px e estouram em tela cheia.",
+      "risk": "Fotos de baixa resolução ficam borradas no computador.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-vertical-video-feed-surface-hero.webp"
+    },
+    {
+      "id": "challenger-dongho",
+      "label": "Xilogravura em camadas",
+      "verdict": "declined",
+      "lineage": "Gravura popular vietnamita Đông Hồ",
+      "thesis": "Cores impressas uma a uma sobre papel brilhante.",
+      "palette": ["#C23B2A", "#E9B53B", "#3E6B3A", "#1B1B1B"],
+      "materials": ["xilogravura", "papel com pó de concha"],
+      "viewport": "Um tema central com cores em blocos chapados.",
+      "case": "Estranho ao público de Francisco Beltrão.",
+      "risk": "Lê como exótico, não local.",
+      "kept": "A ordem de impressão cor a cor virou a entrada das seções."
+    },
+    {
+      "id": "challenger-bench",
+      "label": "Mesa de montagem de filme",
+      "verdict": "declined",
+      "lineage": "Moviola e trilho de seleção",
+      "thesis": "Seções como fotogramas presos num trilho.",
+      "palette": ["#E8641E", "#000000", "#FFFFFF"],
+      "materials": ["película com grão", "fita laranja"],
+      "viewport": "Trilho perfurado atravessando a tela.",
+      "case": "Nada a ver com comer pizza; perde nos dois eixos.",
+      "risk": "Hermético.",
+      "kept": "Uma tinta dominando um terço de cada tela."
+    },
+    {
+      "id": "challenger-daylight",
+      "label": "Corte de luz do dia",
+      "verdict": "declined",
+      "lineage": "Corte arquitetônico com trajetória solar",
+      "thesis": "O sol atravessando os cômodos ao longo do dia.",
+      "palette": ["#F4F1EA", "#2B2B2B", "#E6B84A", "#5B7A99"],
+      "materials": ["cal", "desenho técnico"],
+      "viewport": "Um corte longo do prédio com a faixa de sol.",
+      "case": "Pizza é noite; perde nos dois eixos.",
+      "risk": "Abstrato demais.",
+      "kept": "A página sabe o dia da semana."
+    },
+    {
+      "id": "challenger-quarry",
+      "label": "Pedreira de nuvens",
+      "verdict": "declined",
+      "lineage": "Mundo surreal",
+      "thesis": "Blocos de clima cortados e empilhados.",
+      "palette": ["#F5F7FA", "#6FA8DC", "#5A5F66", "#C0C4CC"],
+      "materials": ["nuvem", "serra de prata"],
+      "viewport": "Blocos brancos com vãos azuis.",
+      "case": "Sem relação com o público nem com o produto.",
+      "risk": "Pura fantasia.",
+      "kept": "Seções empilhadas como blocos com respiro forte entre elas."
+    },
+    {
+      "id": "challenger-hypercard",
+      "label": "Pilha HyperCard",
+      "verdict": "declined",
+      "lineage": "Mac clássico, 1 bit",
+      "thesis": "Cartões preto e branco ligados por botões.",
+      "palette": ["#000000", "#FFFFFF"],
+      "materials": ["pontilhado 1-bit", "botões pintados"],
+      "viewport": "Um cartão fixo com botões desenhados à mão.",
+      "case": "Sem cor, a pizza some; perde nos dois eixos.",
+      "risk": "Nostalgia de nicho.",
+      "kept": "Cada sabor com endereço próprio."
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "canon": true,
+  "canonCard": {
+    "label": "O padrão da categoria",
+    "thesis": "Foto escura da pizza em tela cheia, título grande, botão laranja — o que toda pizzaria faz, bem feito.",
+    "palette": ["#1C1B1A", "#F4F0E8", "#CA7034"],
+    "materials": ["fotografia de produto", "grade limpa"],
+    "viewport": "Hero com foto escura, título e botão 'Ver cardápio'.",
+    "risk": "Indistinguível da concorrência — e próximo do site atual."
+  },
+  "steer": true
+}

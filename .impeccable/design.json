@@ -1,0 +1,551 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-23T22:08:06.009Z",
+  "title": "Design System: La Preferitta Pizzaria",
+  "extensions": {
+    "colorMeta": {
+      "flag": {
+        "role": "primary",
+        "displayName": "Verde-Bandeira",
+        "canonical": "oklch(0.42 0.085 152)",
+        "hexApprox": "#225a35",
+        "tonalRamp": [
+          "oklch(0.15 0.03 152)",
+          "oklch(0.26 0.085 152)",
+          "oklch(0.37 0.085 152)",
+          "oklch(0.48 0.085 152)",
+          "oklch(0.59 0.085 152)",
+          "oklch(0.7 0.085 152)",
+          "oklch(0.82 0.085 152)",
+          "oklch(0.95 0.03 152)"
+        ]
+      },
+      "flag-deep": {
+        "role": "primary",
+        "displayName": "Verde Fundo",
+        "canonical": "oklch(0.33 0.07 152)",
+        "hexApprox": "#133f23",
+        "tonalRamp": [
+          "oklch(0.15 0.03 152)",
+          "oklch(0.26 0.07 152)",
+          "oklch(0.37 0.07 152)",
+          "oklch(0.48 0.07 152)",
+          "oklch(0.59 0.07 152)",
+          "oklch(0.7 0.07 152)",
+          "oklch(0.82 0.07 152)",
+          "oklch(0.95 0.03 152)"
+        ]
+      },
+      "tomato-deep": {
+        "role": "secondary",
+        "displayName": "Vinho",
+        "canonical": "oklch(0.38 0.115 22)",
+        "hexApprox": "#732125",
+        "tonalRamp": [
+          "oklch(0.15 0.03 22)",
+          "oklch(0.26 0.115 22)",
+          "oklch(0.37 0.115 22)",
+          "oklch(0.48 0.115 22)",
+          "oklch(0.59 0.115 22)",
+          "oklch(0.7 0.115 22)",
+          "oklch(0.82 0.115 22)",
+          "oklch(0.95 0.03 22)"
+        ]
+      },
+      "tomato-light": {
+        "role": "secondary",
+        "displayName": "Tomate Claro",
+        "canonical": "oklch(0.78 0.09 40)",
+        "hexApprox": "#eaa48c",
+        "tonalRamp": [
+          "oklch(0.15 0.03 40)",
+          "oklch(0.26 0.09 40)",
+          "oklch(0.37 0.09 40)",
+          "oklch(0.48 0.09 40)",
+          "oklch(0.59 0.09 40)",
+          "oklch(0.7 0.09 40)",
+          "oklch(0.82 0.09 40)",
+          "oklch(0.95 0.03 40)"
+        ]
+      },
+      "tomato": {
+        "role": "secondary",
+        "displayName": "Tomate (fio tricolor)",
+        "canonical": "oklch(0.5 0.155 25)",
+        "hexApprox": "#aa3333",
+        "tonalRamp": [
+          "oklch(0.15 0.03 25)",
+          "oklch(0.26 0.155 25)",
+          "oklch(0.37 0.155 25)",
+          "oklch(0.48 0.155 25)",
+          "oklch(0.59 0.155 25)",
+          "oklch(0.7 0.155 25)",
+          "oklch(0.82 0.155 25)",
+          "oklch(0.95 0.03 25)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Tinta de Chave",
+        "canonical": "oklch(0.17 0.006 50)",
+        "hexApprox": "#120f0d",
+        "tonalRamp": [
+          "oklch(0.15 0.006 50)",
+          "oklch(0.26 0.006 50)",
+          "oklch(0.37 0.006 50)",
+          "oklch(0.48 0.006 50)",
+          "oklch(0.59 0.006 50)",
+          "oklch(0.7 0.006 50)",
+          "oklch(0.82 0.006 50)",
+          "oklch(0.95 0.006 50)"
+        ]
+      },
+      "newsprint": {
+        "role": "neutral",
+        "displayName": "Branco Jornal",
+        "canonical": "oklch(0.965 0.01 85)",
+        "hexApprox": "#f6f3ec",
+        "tonalRamp": [
+          "oklch(0.15 0.01 85)",
+          "oklch(0.26 0.01 85)",
+          "oklch(0.37 0.01 85)",
+          "oklch(0.48 0.01 85)",
+          "oklch(0.59 0.01 85)",
+          "oklch(0.7 0.01 85)",
+          "oklch(0.82 0.01 85)",
+          "oklch(0.95 0.01 85)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Terceira linha do hero, \"La Preferitta\". Bodoni Moda 500 com tamanho óptico automático."
+      },
+      "display-lead": {
+        "displayName": "Display de abertura",
+        "purpose": "Primeira linha do hero, \"Tem pizza.\""
+      },
+      "connective": {
+        "displayName": "Conectivo itálico",
+        "purpose": "O \"e tem\" do hero, em itálico e tomato-light. Único itálico de título.",
+        "fontStyle": "italic"
+      },
+      "headline": {
+        "displayName": "Título de seção",
+        "purpose": ".section-title: caixa de frase, text-wrap balance."
+      },
+      "title-door": {
+        "displayName": "Título das portas",
+        "purpose": "\"Em casa\" e \"No salão\"."
+      },
+      "title-feature": {
+        "displayName": "Título da atração",
+        "purpose": "Nome da atração principal; placa tipográfica em clamp 2.8–4.2rem."
+      },
+      "title": {
+        "displayName": "Título",
+        "purpose": "Nomes dos demais sabores (2.25rem → 3rem) e nome no rodapé."
+      },
+      "caption": {
+        "displayName": "Legenda",
+        "purpose": "Legenda itálica da foto no quadro do hero.",
+        "fontStyle": "italic"
+      },
+      "label": {
+        "displayName": "Rótulo de tarja",
+        "purpose": "Stint caixa alta; compacto em 1.3rem no celular.",
+        "textTransform": "uppercase"
+      },
+      "label-door": {
+        "displayName": "Rótulo de porta",
+        "purpose": "Portas da barra móvel.",
+        "textTransform": "uppercase"
+      },
+      "label-nav": {
+        "displayName": "Navegação",
+        "purpose": "Links do cabeçalho e do rodapé.",
+        "textTransform": "uppercase"
+      },
+      "label-chip": {
+        "displayName": "Chip",
+        "purpose": "Chips do cabeçalho; aviso do mural em 1.1rem.",
+        "textTransform": "uppercase"
+      },
+      "label-stamp": {
+        "displayName": "Carimbo de data",
+        "purpose": "Faixa de data do hero, branco a 70%.",
+        "textTransform": "uppercase"
+      },
+      "body": {
+        "displayName": "Corpo",
+        "purpose": "Texto corrido curto, 34–60ch."
+      },
+      "note": {
+        "displayName": "Nota",
+        "purpose": "Segunda linha das tarjas dizendo para onde a ação leva."
+      }
+    },
+    "shadows": [
+      {
+        "name": "frame",
+        "value": "0 30px 60px -24px oklch(0 0 0 / .7), 0 2px 6px oklch(0 0 0 / .35)",
+        "purpose": "Quadro de fotos do hero, colado."
+      },
+      {
+        "name": "cliche-plain",
+        "value": "0 16px 34px -14px oklch(0 0 0 / .6)",
+        "purpose": "Foto da fachada com borda de papel de 0.45rem."
+      },
+      {
+        "name": "lambe",
+        "value": "0 10px 22px -14px oklch(0 0 0 / .5)",
+        "purpose": "Fotos do mural em repouso."
+      },
+      {
+        "name": "lambe-hover",
+        "value": "0 28px 44px -24px oklch(0 0 0 / .55)",
+        "purpose": "Foto do mural erguida no hover."
+      },
+      {
+        "name": "disc",
+        "value": "0 16px 30px -14px oklch(0 0 0 / .55)",
+        "purpose": "Pizzas desenhadas em escala."
+      },
+      {
+        "name": "disc-hover",
+        "value": "0 24px 40px -16px oklch(0 0 0 / .6)",
+        "purpose": "Disco no hover."
+      },
+      {
+        "name": "tarja-lift",
+        "value": "0 18px 32px -18px oklch(0 0 0 / .55)",
+        "purpose": "Só no hover da tarja, erguida 2px."
+      },
+      {
+        "name": "card-lift",
+        "value": "0 24px 40px -28px oklch(0.17 0.006 50 / .55)",
+        "purpose": "Só no hover do cartão de sabor, erguido 4px."
+      }
+    ],
+    "motion": [
+      {
+        "name": "--ease-out",
+        "value": "cubic-bezier(.22, 1, .36, 1)",
+        "purpose": "Curva única de hovers, entradas, barra de portas e passadas. Transições declaradas no estado de repouso para que a saída seja simétrica."
+      },
+      {
+        "name": "--ease-soft",
+        "value": "cubic-bezier(.65, 0, .35, 1)",
+        "purpose": "Fusão de 1400ms entre as fotos do quadro do hero."
+      },
+      {
+        "name": "hero-rise",
+        "value": "1300ms, stagger 140ms + 120ms",
+        "purpose": "Linhas do título sobem de dentro de máscaras (translate 110% → 0)."
+      },
+      {
+        "name": "hero-after",
+        "value": "fade-up 1100ms, delay 620ms",
+        "purpose": "Bloco de apoio e tarjas sobem 14px."
+      },
+      {
+        "name": "hero-frame",
+        "value": "frame-in 1500ms, delay 260ms",
+        "purpose": "Quadro chega de 40px abaixo, girado 5°."
+      },
+      {
+        "name": "hero-slides",
+        "value": "intervalo 5200ms; fusão 1400ms; push-in scale 1.12 → 1 em 7000ms linear",
+        "purpose": "Revezamento de fotos; pausa no hover, foco, aba oculta e movimento reduzido."
+      },
+      {
+        "name": "roll",
+        "value": "700ms",
+        "purpose": "Rótulo rola para a cópia duplicada (.roll)."
+      },
+      {
+        "name": "tarja-wipe",
+        "value": "clip-path circle 0% → 150% em 900ms; cor 600ms (+60ms); lift 700ms",
+        "purpose": "Preenchimento circular das tarjas a partir da base, perto do ícone."
+      },
+      {
+        "name": "chip-wipe",
+        "value": "clip-path inset 700ms",
+        "purpose": "Cortina que desce nos chips do cabeçalho."
+      },
+      {
+        "name": "underline",
+        "value": "800ms",
+        "purpose": "Sublinhado dos links de navegação: desenha da esquerda, recolhe para a direita. Links no texto fazem o inverso (recolhem no hover)."
+      },
+      {
+        "name": "image-zoom",
+        "value": "scale 1.05–1.06 em 1600ms",
+        "purpose": "Aproximação lenta das fotos dos sabores e do mural."
+      },
+      {
+        "name": "straighten",
+        "value": "900–1000ms",
+        "purpose": "Quadro, fachada e lambes voltam a 0° no hover."
+      },
+      {
+        "name": "disc-turn",
+        "value": "rotate 1400ms, scale 1000ms",
+        "purpose": "Disco gira uma fatia e cresce 4%."
+      },
+      {
+        "name": "pass",
+        "value": "opacity 900ms, translate 1200ms, stagger 150ms, de 18px abaixo",
+        "purpose": "Passadas de entrada das seções abaixo da dobra."
+      },
+      {
+        "name": "door-bar",
+        "value": "700ms",
+        "purpose": "Barra de portas sobe da borda inferior no celular."
+      },
+      {
+        "name": "menu",
+        "value": "700ms (grid-template-rows) + opacidade 500ms",
+        "purpose": "Menu móvel abre por altura."
+      },
+      {
+        "name": "anchor-scroll",
+        "value": "easeOutQuint, 700–1600ms (distância × 0.45), offset = altura do cabeçalho + 12px",
+        "purpose": "src/lib/smooth-scroll.ts: rolagem de âncora; cancela com roda/toque; foca a seção ao chegar."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "Com prefers-reduced-motion: sem revezamento nem push-in, passadas visíveis, rolagem imediata."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "container",
+        "value": "1536px"
+      }
+    ],
+    "paperGrain": {
+      "value": "SVG feTurbulence fractalNoise baseFrequency .85, 3 octaves; opacity .12; mix-blend-mode multiply",
+      "purpose": "Grão de papel (.paper::after) sobre jornal, verde e o cartão vinho. A tinta fica lisa."
+    },
+    "fonts": {
+      "source": "https://fonts.googleapis.com/css2?family=Archivo:wght@400..600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Stint+Ultra+Condensed&display=swap",
+      "tokens": {
+        "--font-didone": "\"Bodoni Moda\", \"Didot\", serif",
+        "--font-label": "\"Stint Ultra Condensed\", \"Arial Narrow\", sans-serif",
+        "--font-body": "\"Archivo\", \"Helvetica Neue\", sans-serif"
+      }
+    },
+    "assets": {
+      "logo": "/images/logo-mono.webp (sem fundo) no cabeçalho e no rodapé.",
+      "heroVideo": "src/data/brand.ts: heroVideo { src, poster } | null; quando preenchido substitui as fotos do quadro."
+    },
+    "legacy": {
+      "status": "deprecated",
+      "scope": "Somente a rota /design-system (src/routes/design-system.tsx).",
+      "tokens": [
+        "--brand-orange",
+        "--primary-dark",
+        "--brand-orange-light",
+        "--brand-charcoal",
+        "--brand-deep",
+        "--brand-gray",
+        "--brand-green",
+        "--brand-red",
+        "--brand-ivory",
+        "--surface",
+        "--shadow-brand",
+        "--shadow-brand-strong",
+        "--shadow-subtle",
+        "--shadow-header",
+        "--font-display (Fraunces)",
+        "--font-serif-label (Fraunces)",
+        "--font-sans (Manrope)",
+        "@utility hero-shade, btn-liquid, image-zoom, nav-link, section-space, ds-section, ds-label, ds-title",
+        "shadcn: --background, --foreground, --card, --popover, --primary, --secondary, --muted, --accent, --border, --input, --ring, --radius, --chart-*, --sidebar-*"
+      ]
+    }
+  },
+  "components": [
+    {
+      "name": "Tarja Pedir agora (papel)",
+      "kind": "button",
+      "refersTo": "tarja-paper",
+      "description": "Ação primária sobre tinta, vinho ou verde: carimbo reto; no hover um círculo de tinta cresce da base e o rótulo rola.",
+      "html": "<div style=\"background: var(--ink); padding: 24px;\"><a href=\"#\" class=\"ds-tarja ds-tarja-paper\"><span class=\"ds-tarja-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z\"/><path d=\"M3 6h18\"/><path d=\"M16 10a4 4 0 0 1-8 0\"/></svg></span><span class=\"ds-tarja-text\"><span class=\"ds-tarja-label\"><span class=\"ds-roll\"><span class=\"ds-roll-a\">Pedir agora</span><span class=\"ds-roll-b\" aria-hidden=\"true\">Pedir agora</span></span></span><span class=\"ds-tarja-note\">Delivery ou retirada</span></span><svg class=\"ds-tarja-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a></div>",
+      "css": ".ds-tarja { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; gap: .9rem; min-height: 4.25rem; max-width: 22rem; padding: .7rem 1rem .7rem 1.1rem; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 0; text-decoration: none; transition: color 600ms cubic-bezier(.22,1,.36,1) 60ms, translate 700ms cubic-bezier(.22,1,.36,1), box-shadow 700ms cubic-bezier(.22,1,.36,1), border-color 600ms ease; } .ds-tarja::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: var(--fill); clip-path: circle(0% at 12% 100%); transition: clip-path 900ms cubic-bezier(.22,1,.36,1); } .ds-tarja:hover, .ds-tarja:focus-visible { color: var(--fill-fg); translate: 0 -2px; box-shadow: 0 18px 32px -18px oklch(0 0 0 / .55); border-color: var(--fill); } .ds-tarja:hover::before, .ds-tarja:focus-visible::before { clip-path: circle(150% at 12% 100%); } .ds-tarja:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; } .ds-tarja:active { translate: 0 0; transition-duration: 150ms; } .ds-tarja-icon { display: grid; place-items: center; flex: none; width: 2.25rem; height: 2.25rem; border-radius: 999px; border: 1px solid currentColor; transition: rotate 800ms cubic-bezier(.22,1,.36,1), scale 800ms cubic-bezier(.22,1,.36,1); } .ds-tarja-icon svg { width: 1rem; height: 1rem; } .ds-tarja:hover .ds-tarja-icon { rotate: -12deg; scale: 1.08; } .ds-tarja-text { display: flex; flex-direction: column; min-width: 0; } .ds-tarja-label { font-family: 'Stint Ultra Condensed', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 1.55rem; line-height: 1.05; letter-spacing: .06em; } .ds-tarja-note { font-family: 'Archivo', 'Helvetica Neue', sans-serif; font-size: .82rem; font-weight: 500; margin-top: .15rem; opacity: .8; } .ds-tarja-arrow { margin-left: auto; flex: none; width: 1.1rem; height: 1.1rem; opacity: .5; transition: translate 800ms cubic-bezier(.22,1,.36,1), opacity 600ms ease; } .ds-tarja:hover .ds-tarja-arrow { translate: 3px -3px; opacity: 1; } .ds-roll { position: relative; display: inline-block; overflow: hidden; vertical-align: top; } .ds-roll-a, .ds-roll-b { display: block; transition: translate 700ms cubic-bezier(.22,1,.36,1); } .ds-roll-b { position: absolute; inset: 0; translate: 0 105%; } a:hover .ds-roll-a, a:focus-visible .ds-roll-a { translate: 0 -105%; } a:hover .ds-roll-b, a:focus-visible .ds-roll-b { translate: 0 0; } .ds-tarja-paper { --fg: var(--ink); --bg: var(--newsprint); --fill: var(--ink); --fill-fg: var(--newsprint); --line: var(--newsprint); }"
+    },
+    {
+      "name": "Tarja Como chegar (verde)",
+      "kind": "button",
+      "refersTo": "tarja-flag",
+      "description": "Porta para o salão, sempre ao lado de Pedir agora e do mesmo tamanho.",
+      "html": "<div style=\"background: var(--ink); padding: 24px;\"><a href=\"#\" class=\"ds-tarja ds-tarja-flag\"><span class=\"ds-tarja-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg></span><span class=\"ds-tarja-text\"><span class=\"ds-tarja-label\"><span class=\"ds-roll\"><span class=\"ds-roll-a\">Como chegar</span><span class=\"ds-roll-b\" aria-hidden=\"true\">Como chegar</span></span></span><span class=\"ds-tarja-note\">Salão no Bairro Industrial</span></span><svg class=\"ds-tarja-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a></div>",
+      "css": ".ds-tarja { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; gap: .9rem; min-height: 4.25rem; max-width: 22rem; padding: .7rem 1rem .7rem 1.1rem; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 0; text-decoration: none; transition: color 600ms cubic-bezier(.22,1,.36,1) 60ms, translate 700ms cubic-bezier(.22,1,.36,1), box-shadow 700ms cubic-bezier(.22,1,.36,1), border-color 600ms ease; } .ds-tarja::before { content: \"\"; position: absolute; inset: 0; z-index: -1; background: var(--fill); clip-path: circle(0% at 12% 100%); transition: clip-path 900ms cubic-bezier(.22,1,.36,1); } .ds-tarja:hover, .ds-tarja:focus-visible { color: var(--fill-fg); translate: 0 -2px; box-shadow: 0 18px 32px -18px oklch(0 0 0 / .55); border-color: var(--fill); } .ds-tarja:hover::before, .ds-tarja:focus-visible::before { clip-path: circle(150% at 12% 100%); } .ds-tarja:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; } .ds-tarja:active { translate: 0 0; transition-duration: 150ms; } .ds-tarja-icon { display: grid; place-items: center; flex: none; width: 2.25rem; height: 2.25rem; border-radius: 999px; border: 1px solid currentColor; transition: rotate 800ms cubic-bezier(.22,1,.36,1), scale 800ms cubic-bezier(.22,1,.36,1); } .ds-tarja-icon svg { width: 1rem; height: 1rem; } .ds-tarja:hover .ds-tarja-icon { rotate: -12deg; scale: 1.08; } .ds-tarja-text { display: flex; flex-direction: column; min-width: 0; } .ds-tarja-label { font-family: 'Stint Ultra Condensed', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 1.55rem; line-height: 1.05; letter-spacing: .06em; } .ds-tarja-note { font-family: 'Archivo', 'Helvetica Neue', sans-serif; font-size: .82rem; font-weight: 500; margin-top: .15rem; opacity: .8; } .ds-tarja-arrow { margin-left: auto; flex: none; width: 1.1rem; height: 1.1rem; opacity: .5; transition: translate 800ms cubic-bezier(.22,1,.36,1), opacity 600ms ease; } .ds-tarja:hover .ds-tarja-arrow { translate: 3px -3px; opacity: 1; } .ds-roll { position: relative; display: inline-block; overflow: hidden; vertical-align: top; } .ds-roll-a, .ds-roll-b { display: block; transition: translate 700ms cubic-bezier(.22,1,.36,1); } .ds-roll-b { position: absolute; inset: 0; translate: 0 105%; } a:hover .ds-roll-a, a:focus-visible .ds-roll-a { translate: 0 -105%; } a:hover .ds-roll-b, a:focus-visible .ds-roll-b { translate: 0 0; } .ds-tarja-flag { --fg: var(--newsprint); --bg: var(--flag); --fill: var(--newsprint); --fill-fg: var(--flag-deep); --line: var(--flag); }"
+    },
+    {
+      "name": "Chips do cabeçalho",
+      "kind": "chip",
+      "refersTo": "chip-solid",
+      "description": "As duas portas em versão compacta no cabeçalho de tinta; o preenchimento desce como cortina.",
+      "html": "<div style=\"background: var(--ink); padding: 16px; display: flex; gap: 8px;\"><a href=\"#\" class=\"ds-chip ds-chip-solid\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z\"/><path d=\"M3 6h18\"/><path d=\"M16 10a4 4 0 0 1-8 0\"/></svg><span class=\"ds-roll\"><span class=\"ds-roll-a\">Pedir agora</span><span class=\"ds-roll-b\" aria-hidden=\"true\">Pedir agora</span></span></a><a href=\"#\" class=\"ds-chip ds-chip-line\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg><span class=\"ds-roll\"><span class=\"ds-roll-a\">Como chegar</span><span class=\"ds-roll-b\" aria-hidden=\"true\">Como chegar</span></span></a></div>",
+      "css": ".ds-chip { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; gap: .5rem; height: 2.5rem; padding: 0 1rem; font-family: 'Stint Ultra Condensed', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 1.15rem; letter-spacing: .07em; text-decoration: none; border: 1px solid var(--newsprint); border-radius: 0; transition: color 600ms cubic-bezier(.22,1,.36,1) 60ms; } .ds-chip svg { width: .95rem; height: .95rem; } .ds-chip::before { content: \"\"; position: absolute; inset: 0; z-index: -1; clip-path: inset(0 0 100% 0); transition: clip-path 700ms cubic-bezier(.22,1,.36,1); } .ds-chip:hover::before, .ds-chip:focus-visible::before { clip-path: inset(0 0 0 0); } .ds-chip:focus-visible { outline: 2px solid var(--newsprint); outline-offset: 4px; } .ds-chip-solid { background: var(--newsprint); color: var(--ink); } .ds-chip-solid::before { background: var(--flag); } .ds-chip-solid:hover, .ds-chip-solid:focus-visible { color: var(--newsprint); } .ds-chip-line { color: var(--newsprint); border-color: oklch(0.965 0.01 85 / .4); } .ds-chip-line::before { background: var(--newsprint); } .ds-chip-line:hover, .ds-chip-line:focus-visible { color: var(--ink); } .ds-roll { position: relative; display: inline-block; overflow: hidden; vertical-align: top; } .ds-roll-a, .ds-roll-b { display: block; transition: translate 700ms cubic-bezier(.22,1,.36,1); } .ds-roll-b { position: absolute; inset: 0; translate: 0 105%; } a:hover .ds-roll-a, a:focus-visible .ds-roll-a { translate: 0 -105%; } a:hover .ds-roll-b, a:focus-visible .ds-roll-b { translate: 0 0; }"
+    },
+    {
+      "name": "Cabeçalho",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Tinta lisa, links em Stint caixa alta com sublinhado que se desenha da esquerda e recolhe para a direita, fio tricolor de 3px.",
+      "html": "<header class=\"ds-header\"><nav class=\"ds-header-nav\"><a href=\"#\" class=\"ds-nav-link\">Sabores</a><a href=\"#\" class=\"ds-nav-link\">Tamanhos</a><a href=\"#\" class=\"ds-nav-link\">Mural</a><a href=\"#\" class=\"ds-nav-link\">Pedir ou vir</a></nav><div class=\"ds-tricolor\"><span></span><span></span><span></span></div></header>",
+      "css": ".ds-header { background: var(--ink); color: var(--newsprint); } .ds-header-nav { display: flex; gap: 2.25rem; align-items: center; height: 4.5rem; padding: 0 2rem; } .ds-nav-link { position: relative; padding: .2rem 0; color: inherit; text-decoration: none; font-family: 'Stint Ultra Condensed', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 1.2rem; letter-spacing: .08em; transition: color 500ms ease; } .ds-nav-link::after { content: \"\"; position: absolute; left: 0; right: 0; bottom: -.1rem; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform 800ms cubic-bezier(.22,1,.36,1); } .ds-nav-link:hover::after, .ds-nav-link:focus-visible::after { transform: scaleX(1); transform-origin: left; } .ds-nav-link:hover { color: var(--tomato-light); } .ds-nav-link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; } .ds-tricolor { display: flex; height: 3px; } .ds-tricolor span { flex: 1; } .ds-tricolor span:nth-child(1) { background: var(--flag); } .ds-tricolor span:nth-child(2) { background: var(--newsprint); } .ds-tricolor span:nth-child(3) { background: var(--tomato); }"
+    },
+    {
+      "name": "Título do hero",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "Três linhas em Bodoni Moda que sobem de máscaras; o conectivo itálico em tomato-light.",
+      "html": "<div class=\"ds-hero\"><h1 class=\"ds-hero-title\"><span class=\"ds-mask\"><span class=\"ds-rise\" style=\"--i:0\">Tem pizza.</span></span><span class=\"ds-mask\"><span class=\"ds-rise ds-and\" style=\"--i:1\">e tem</span></span><span class=\"ds-mask\"><span class=\"ds-rise\" style=\"--i:2\">La Preferitta</span></span></h1><p class=\"ds-hero-sub\">Muito sabor. Muito recheio.</p></div>",
+      "css": ".ds-hero { background: var(--ink); color: var(--newsprint); padding: 2rem; } .ds-hero-title { margin: 0; font-family: 'Bodoni Moda', 'Didot', serif; font-weight: 500; line-height: 1; letter-spacing: -.012em; } .ds-mask { display: block; overflow: hidden; padding-bottom: .06em; } .ds-mask:nth-child(1) { font-size: 3.1rem; } .ds-mask:nth-child(2) { font-size: 1.8rem; margin-top: .1em; } .ds-mask:nth-child(3) { font-size: 3.4rem; } .ds-and { font-style: italic; color: var(--tomato-light); } .ds-rise { display: block; animation: ds-rise 1300ms cubic-bezier(.22,1,.36,1) both; animation-delay: calc(var(--i) * 140ms + 120ms); } @keyframes ds-rise { from { translate: 0 110%; } } .ds-hero-sub { margin: 1.5rem 0 0; font-family: 'Stint Ultra Condensed', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 1.55rem; letter-spacing: .08em; } @media (prefers-reduced-motion: reduce) { .ds-rise { animation: none; } }"
+    },
+    {
+      "name": "Quadro do hero",
+      "kind": "custom",
+      "refersTo": "frame",
+      "description": "Clichê de papel girado; fotos reais em fusão com aproximação lenta, legenda em Didone itálica e pontos de controle.",
+      "html": "<div style=\"background: var(--ink); padding: 32px;\"><div class=\"ds-frame\"><div class=\"ds-frame-stage\"><div class=\"ds-frame-media\"></div></div><div class=\"ds-frame-foot\"><p class=\"ds-frame-caption\">Carne Seca Especial</p><div class=\"ds-dots\"><button type=\"button\" class=\"ds-dot is-active\" aria-label=\"Mostrar foto 1 de 4\"></button><button type=\"button\" class=\"ds-dot\" aria-label=\"Mostrar foto 2 de 4\"></button><button type=\"button\" class=\"ds-dot\" aria-label=\"Mostrar foto 3 de 4\"></button><button type=\"button\" class=\"ds-dot\" aria-label=\"Mostrar foto 4 de 4\"></button></div></div></div></div>",
+      "css": ".ds-frame { max-width: 16rem; background: var(--newsprint); padding: .65rem .65rem 0; rotate: 1.4deg; box-shadow: 0 30px 60px -24px oklch(0 0 0 / .7), 0 2px 6px oklch(0 0 0 / .35); transition: rotate 900ms cubic-bezier(.22,1,.36,1), translate 900ms cubic-bezier(.22,1,.36,1); } .ds-frame:hover { rotate: 0deg; translate: 0 -4px; } .ds-frame-stage { position: relative; aspect-ratio: 382 / 510; overflow: hidden; background: var(--ink); } .ds-frame-media { position: absolute; inset: 0; background: radial-gradient(circle at 50% 55%, var(--tomato-light) 0 36%, var(--tomato-deep) 37% 43%, var(--ink) 44%); animation: ds-push 7000ms linear infinite alternate; } @keyframes ds-push { from { scale: 1.12; } to { scale: 1; } } .ds-frame-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem .2rem .9rem; color: var(--ink); } .ds-frame-caption { margin: 0; font-family: 'Bodoni Moda', 'Didot', serif; font-weight: 500; font-style: italic; font-size: 1.2rem; } .ds-dots { display: flex; gap: .375rem; } .ds-dot { position: relative; width: 1.75rem; height: 1.75rem; padding: 0; border: 0; background: none; cursor: pointer; } .ds-dot::before { content: \"\"; position: absolute; inset: 50% auto auto 50%; translate: -50% -50%; width: .5rem; height: .5rem; border-radius: 999px; border: 1px solid var(--ink); transition: scale 700ms cubic-bezier(.22,1,.36,1), background-color 500ms ease; } .ds-dot.is-active::before { scale: 2.4 1; background: var(--ink); } .ds-dot:hover::before { background: var(--ink); } .ds-dot:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; } @media (prefers-reduced-motion: reduce) { .ds-frame-media { animation: none; } }"
+    },
+    {
+      "name": "Cartão de sabor",
+      "kind": "card",
+      "refersTo": "act-card",
+      "description": "Sabor em papel jornal com borda de tinta a 80%; placa tipográfica verde quando não há foto oficial. Sobe no hover.",
+      "html": "<div style=\"background: var(--newsprint); padding: 24px;\"><article class=\"ds-card\"><div class=\"ds-card-plate\"><p><span class=\"ds-plate-main\">Filé mignon</span><span class=\"ds-plate-sub\">com bacon e gorgonzola</span></p></div><div class=\"ds-card-body\"><h3 class=\"ds-card-title\">Filé do Chef</h3><p class=\"ds-card-text\">Sobre molho de tomate, mussarela e orégano, com filé mignon e bacon ao molho branco com gorgonzola.</p></div></article></div>",
+      "css": ".ds-card { max-width: 26rem; background: var(--newsprint); color: var(--ink); border: 1px solid oklch(0.17 0.006 50 / .8); border-radius: 0; transition: box-shadow 900ms cubic-bezier(.22,1,.36,1), translate 900ms cubic-bezier(.22,1,.36,1); } .ds-card:hover { translate: 0 -4px; box-shadow: 0 24px 40px -28px oklch(0.17 0.006 50 / .55); } .ds-card-plate { display: flex; align-items: flex-end; height: 12rem; padding: 1.5rem; background: var(--flag); color: var(--newsprint); border-bottom: 1px solid oklch(0.17 0.006 50 / .8); } .ds-card-plate p { margin: 0; } .ds-plate-main { display: block; font-family: 'Bodoni Moda', 'Didot', serif; font-weight: 500; font-size: 2.8rem; line-height: 1; } .ds-plate-sub { display: block; margin-top: .5rem; font-family: 'Stint Ultra Condensed', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 1.55rem; letter-spacing: .12em; opacity: .8; } .ds-card-body { padding: 1.5rem; } .ds-card-title { margin: 0; font-family: 'Bodoni Moda', 'Didot', serif; font-weight: 500; font-size: 3rem; line-height: 1.25; } .ds-card-text { margin: .75rem 0 0; font-family: 'Archivo', 'Helvetica Neue', sans-serif; font-size: 1.125rem; line-height: 1.625; color: oklch(0.17 0.006 50 / .75); }"
+    },
+    {
+      "name": "Tamanhos em escala",
+      "kind": "custom",
+      "refersTo": "size-disc-letter",
+      "description": "Discos com diâmetro proporcional aos cm e linhas de corte pelo número de fatias; giram uma fatia no hover.",
+      "html": "<ol class=\"ds-sizes\"><li class=\"ds-size\"><div class=\"ds-disc\" style=\"--d:25;--n:4\"><span class=\"ds-disc-letter\">P</span></div><p>25 cm<br><span>4 fatias</span></p></li><li class=\"ds-size\"><div class=\"ds-disc\" style=\"--d:40;--n:16\"><span class=\"ds-disc-letter\">GG</span></div><p>40 cm<br><span>16 fatias</span></p></li></ol>",
+      "css": ".ds-sizes { --max: 12rem; list-style: none; margin: 0; padding: 1.5rem; display: flex; gap: 2rem; align-items: flex-end; background: var(--flag); color: var(--newsprint); } .ds-size { display: flex; flex-direction: column; align-items: center; } .ds-size p { margin: 1rem 0 0; text-align: center; font-family: 'Stint Ultra Condensed', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 1.3rem; line-height: 1.25; letter-spacing: .08em; } .ds-size p span { opacity: .75; } .ds-disc { position: relative; width: calc(var(--d) / 40 * var(--max)); aspect-ratio: 1; border-radius: 50%; border: 6px solid oklch(0.8 0.06 70); background: repeating-conic-gradient(from 0deg, oklch(0.17 0.006 50 / .55) 0deg .6deg, transparent .6deg calc(360deg / var(--n))), var(--newsprint); box-shadow: 0 16px 30px -14px oklch(0 0 0 / .55); transition: rotate 1400ms cubic-bezier(.22,1,.36,1), scale 1000ms cubic-bezier(.22,1,.36,1), box-shadow 1000ms cubic-bezier(.22,1,.36,1); } .ds-size:hover .ds-disc { rotate: calc(360deg / var(--n)); scale: 1.04; box-shadow: 0 24px 40px -16px oklch(0 0 0 / .6); } .ds-disc-letter { position: absolute; inset: 50% auto auto 50%; translate: -50% -50%; display: grid; place-items: center; min-width: 2.2em; height: 2.2em; padding: 0 .3em; border-radius: 999px; background: var(--ink); color: var(--newsprint); font-family: 'Stint Ultra Condensed', 'Arial Narrow', sans-serif; font-size: 1.3rem; letter-spacing: .04em; line-height: 1; }"
+    },
+    {
+      "name": "Lambe do mural",
+      "kind": "custom",
+      "refersTo": "lambe",
+      "description": "Foto 4:5 inclinada com moldura branca; no hover se endireita e revela \"Ver no Instagram\".",
+      "html": "<div style=\"background: var(--newsprint); padding: 32px;\"><div class=\"ds-lambe\" style=\"--tilt:-1.2deg\"><a href=\"#\" aria-label=\"Pizza com tomate e manjericão — ver mais no Instagram\"><div class=\"ds-lambe-img\"></div><span class=\"ds-lambe-cue\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\"/><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\"/><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\"/></svg> Ver no Instagram</span></a></div></div>",
+      "css": ".ds-lambe { width: 13rem; aspect-ratio: 4 / 5; rotate: var(--tilt, 0deg); border: .4rem solid white; background: white; box-shadow: 0 10px 22px -14px oklch(0 0 0 / .5); transition: rotate 1000ms cubic-bezier(.22,1,.36,1), translate 1000ms cubic-bezier(.22,1,.36,1), box-shadow 1000ms cubic-bezier(.22,1,.36,1); } .ds-lambe:hover { rotate: 0deg; translate: 0 -6px; box-shadow: 0 28px 44px -24px oklch(0 0 0 / .55); } .ds-lambe a { position: relative; display: block; height: 100%; overflow: hidden; } .ds-lambe a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; } .ds-lambe-img { height: 100%; background: radial-gradient(circle at 50% 50%, var(--tomato-light) 0 38%, var(--tomato-deep) 39% 45%, var(--flag) 46%); transition: scale 1600ms cubic-bezier(.22,1,.36,1); } .ds-lambe:hover .ds-lambe-img { scale: 1.06; } .ds-lambe-cue { position: absolute; inset: auto 0 0 0; display: flex; align-items: center; gap: .5rem; padding: 2.5rem .9rem .8rem; color: var(--newsprint); font-family: 'Stint Ultra Condensed', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 1.15rem; letter-spacing: .08em; background: linear-gradient(to top, oklch(0.17 0.006 50 / .75), transparent); opacity: 0; translate: 0 .6rem; transition: opacity 700ms ease, translate 900ms cubic-bezier(.22,1,.36,1); } .ds-lambe-cue svg { width: 1rem; height: 1rem; } .ds-lambe:hover .ds-lambe-cue, .ds-lambe a:focus-visible .ds-lambe-cue { opacity: 1; translate: 0 0; }"
+    },
+    {
+      "name": "Barra de portas (celular)",
+      "kind": "custom",
+      "refersTo": "door-paper",
+      "description": "Duas metades iguais, papel e verde, fixas na base da tela do celular.",
+      "html": "<div class=\"ds-door-bar\"><a href=\"#\" class=\"ds-door ds-door-paper\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z\"/><path d=\"M3 6h18\"/><path d=\"M16 10a4 4 0 0 1-8 0\"/></svg> Pedir agora</a><a href=\"#\" class=\"ds-door ds-door-flag\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg> Como chegar</a></div>",
+      "css": ".ds-door-bar { display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); max-width: 24rem; } .ds-door { display: flex; align-items: center; justify-content: center; gap: .5rem; height: 3.75rem; font-family: 'Stint Ultra Condensed', 'Arial Narrow', sans-serif; font-weight: 400; text-transform: uppercase; font-size: 1.3rem; letter-spacing: .06em; text-decoration: none; } .ds-door svg { width: 1.05rem; height: 1.05rem; } .ds-door:focus-visible { outline: 2px solid currentColor; outline-offset: -6px; } .ds-door-paper { background: var(--newsprint); color: var(--ink); } .ds-door-flag { background: var(--flag); color: var(--newsprint); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "O Cartaz de Gala",
+    "overview": "A home da La Preferitta continua sendo um cartaz de baile do sudoeste do Paraná, mas agora de traje escuro: uma pizzaria chique. A parede é de tinta preta (`ink`) e nela ficam o cabeçalho, o hero, a ficha da atração principal, a seção das portas e o rodapé. Entre essas paredes correm folhas de papel jornal (`newsprint`) com grão impresso e uma folha verde-bandeira (`flag`) para os tamanhos. O vermelho deixou de ser o papel: sobra um vinho (`tomato-deep`) no cartão \"Em casa\", um tomate claro (`tomato-light`) como acento pequeno e o terço vermelho da faixa tricolor.\n\nOs títulos são de uma Didone de alto contraste (Bodoni Moda), em caixa baixa e com itálico de acento; rótulos, navegação, botões e endereços usam uma grotesca ultracondensada em caixa alta e espacejada (Stint Ultra Condensed), escolhida pela usuária por lembrar o letreiro do logo. O Archivo fica quieto no texto corrido. Fotos reais entram como clichês com moldura de papel, levemente tortas, como se coladas à mão.\n\nO movimento é longo, suave e simétrico: tudo desacelera numa curva única (`--ease-out`), entre 600 e 1600ms, e volta pelo mesmo caminho quando o cursor sai. O hero se anima ao carregar (linhas sobem de máscaras, fotos se revezam no quadro com aproximação lenta), e os links de âncora rolam a página com a mesma desaceleração. Este sistema substitui a identidade anterior (laranja/grafite, Fraunces/Manrope, sombras suaves); os tokens dela continuam em `src/styles.css` só para a rota legada `/design-system`.",
+    "keyCharacteristics": [
+      "Parede de tinta preta, folhas de papel jornal e uma folha verde; vermelho só como vinho, acento claro e fio tricolor.",
+      "Didone (Bodoni Moda 500) para todo título; itálico em `tomato-light` como acento (\"e tem\").",
+      "Grotesca ultracondensada (Stint Ultra Condensed) em caixa alta espacejada para rótulos, navegação, botões e endereços.",
+      "Cantos vivos em tudo; os únicos círculos são pizzas, anéis de ícone, selos de letra e pontos do quadro.",
+      "Movimento longo e simétrico numa curva só, 600–1600ms.",
+      "Duas portas de peso igual, sempre juntas: Pedir agora e Como chegar."
+    ],
+    "rules": [
+      {
+        "name": "The Parede Preta Rule",
+        "body": "A tinta é a cor dominante: hero, cabeçalho, ficha da atração principal, portas e rodapé são tinta chapada. As seções claras são papel jornal e só a de tamanhos é verde. Não há mais cota mínima de vermelho; a antiga regra do \"terço tomate\" está revogada.",
+        "section": "colors"
+      },
+      {
+        "name": "The Vinho Raro Rule",
+        "body": "O vermelho aparece em três lugares e só neles: o vinho do cartão \"Em casa\", o tomate claro como acento de texto pequeno sobre tinta, e o terço vermelho da faixa tricolor. Nunca como fundo de seção, botão ou título.",
+        "section": "colors"
+      },
+      {
+        "name": "The Duas Portas Rule",
+        "body": "\"Pedir agora\" e \"Como chegar\" aparecem juntas e do mesmo tamanho no cabeçalho, no hero, na seção das portas e na barra móvel. \"Pedir agora\" leva o tom mais claro ou sólido (papel), \"Como chegar\" leva o verde, ou o contorno quando o fundo já é verde ou o espaço é o cabeçalho.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tinta Sem Cinza Rule",
+        "body": "Não há cinzas no sistema. Hierarquia de texto se faz com tamanho, face e opacidade do branco jornal (`/60`–`/85`) ou da tinta (`/70`–`/80`).",
+        "section": "colors"
+      },
+      {
+        "name": "The Didone Só Titula Rule",
+        "body": "Bodoni Moda faz nomes e títulos, sempre em peso 500, caixa de frase e entrelinha 1–1.25. Nunca em rótulo, botão ou texto corrido; nunca em caixa alta.",
+        "section": "typography"
+      },
+      {
+        "name": "The Letreiro Rule",
+        "body": "Tudo que é ação, navegação, rótulo, dado ou endereço fala em Stint Ultra Condensed, em caixa alta com espacejamento entre 0.06em e 0.14em. Quanto menor o corpo, maior o espacejamento.",
+        "section": "typography"
+      },
+      {
+        "name": "The Um Itálico Rule",
+        "body": "O itálico em `tomato-light` é o acento do hero (\"e tem\"); a legenda do quadro é o único outro itálico. Não espalhar itálicos coloridos como enfeite.",
+        "section": "typography"
+      },
+      {
+        "name": "The Papel Colado Rule",
+        "body": "Em repouso só projeta sombra o que foi colado por cima (quadro, foto, disco). Tarjas e cartões são impressos no papel e ficam chapados até o hover erguê-los.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Tinta Lisa Rule",
+        "body": "A tinta nunca leva grão; o grão é do papel (jornal, verde e o vinho do \"Em casa\").",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do usar a tinta (`ink`) como parede dominante: hero, cabeçalho, ficha da atração principal, portas e rodapé.",
+      "Do limitar o vermelho ao vinho (`tomato-deep`) do \"Em casa\", ao acento `tomato-light` e ao terço da faixa tricolor.",
+      "Do apresentar \"Pedir agora\" e \"Como chegar\" juntas e do mesmo tamanho em toda aparição.",
+      "Do compor títulos em Bodoni Moda 500 (`--font-didone`), caixa de frase, com o itálico em `tomato-light` só como acento do hero.",
+      "Do escrever rótulos, navegação, botões e endereços em Stint Ultra Condensed (`--font-label`) caixa alta, espacejada entre 0.06em e 0.14em.",
+      "Do animar hovers com `--ease-out` (`cubic-bezier(.22,1,.36,1)`) entre 600 e 1600ms, com a transição no estado de repouso para que a saída seja simétrica.",
+      "Do emoldurar fotos reais com papel e girá-las levemente (até 1.5°), endireitando no hover.",
+      "Do aplicar o grão de papel sobre os campos jornal, verde e vinho, e deixar a tinta lisa.",
+      "Do manter cantos vivos (0px); reservar o círculo para pizzas, anéis de ícone, selos de letra e pontos do quadro.",
+      "Do usar a placa tipográfica verde quando um sabor não tem foto oficial.",
+      "Do respeitar `prefers-reduced-motion`: sem revezamento, sem aproximação, rolagem imediata."
+    ],
+    "donts": [
+      "Don't voltar a cobrir a tela de vermelho-tomate: a regra do \"terço tomate\" foi revogada pela usuária.",
+      "Don't usar vermelho como fundo de seção, botão ou título.",
+      "Don't usar Didone em rótulos, botões ou caixa alta, nem a condensada em títulos.",
+      "Don't usar os tokens legados (`--brand-orange`, `--brand-charcoal`, `--brand-ivory`, Fraunces, Manrope, `--shadow-brand*`, `hero-shade`, `btn-liquid`, as variáveis shadcn) em superfícies novas; eles existem só para `/design-system`.",
+      "Don't pôr a foto do hero sangrada atrás do título com véu escuro: a foto real fica no quadro emoldurado.",
+      "Don't usar hovers curtos ou que só existem na entrada (sem transição de volta).",
+      "Don't arredondar tarjas, chips, cartões ou fotos.",
+      "Don't colocar sombra em repouso em folhas, tarjas, chips ou cartões.",
+      "Don't pôr grão sobre a tinta.",
+      "Don't usar sombra de texto ou passada fora de registro em títulos.",
+      "Don't usar cinzas; hierarquia vem da opacidade do branco jornal ou da tinta.",
+      "Don't usar a foto de um sabor para representar outro."
+    ]
+  }
+}
