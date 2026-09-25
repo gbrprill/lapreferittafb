@@ -1,15 +1,4 @@
-import {
-  ArrowUpRight,
-  Clock,
-  Instagram,
-  MapPin,
-  Menu,
-  Pause,
-  Play,
-  ShoppingBag,
-  X,
-} from "lucide-react";
-import { MotionConfig, motion, type Variants } from "motion/react";
+import { Clock, Instagram, MapPin, Menu, Pause, Play, ShoppingBag, X } from "lucide-react";
 import {
   useEffect,
   useRef,
@@ -18,8 +7,10 @@ import {
   type ReactNode,
   type RefObject,
 } from "react";
-import { brand, heroSlides, heroVideo, isFilled, mural, pizzas, sizes } from "@/data/brand";
+import { brand, heroSlides, heroVideo, isFilled, mural, sizes } from "@/data/brand";
+import { MenuSection } from "@/components/menu-section";
 import { SiteLoader } from "@/components/site-loader";
+import { OrderTarja, Roll, VisitTarja } from "@/components/tarja";
 import { playHeroSequence } from "@/lib/hero-sequence";
 import { afterLoader } from "@/lib/loader-gate";
 import { installSmoothAnchors } from "@/lib/smooth-scroll";
@@ -133,101 +124,6 @@ function Tricolor({ className = "" }: { className?: string }) {
       <span className="flex-1 bg-newsprint" />
       <span className="flex-1 bg-tomato" />
     </div>
-  );
-}
-
-/** Label that rolls to a second copy of itself on hover. */
-function Roll({ children }: { children: string }) {
-  return (
-    <span className="roll">
-      <span className="roll-a">{children}</span>
-      <span className="roll-b" aria-hidden="true">
-        {children}
-      </span>
-    </span>
-  );
-}
-
-/** Primary action tab: one action, a short second line saying where it leads. */
-function Tarja({
-  href,
-  icon,
-  label,
-  note,
-  tone,
-  className = "",
-  ariaLabel,
-}: {
-  href: string;
-  icon: ReactNode;
-  label: string;
-  note: string;
-  tone: "paper" | "flag" | "ink" | "line";
-  className?: string;
-  ariaLabel?: string | undefined;
-}) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={ariaLabel}
-      className={`tarja tarja-${tone} ${className}`}
-    >
-      <span className="tarja-icon" aria-hidden="true">
-        {icon}
-      </span>
-      <span className="flex min-w-0 flex-col">
-        <span className="tarja-label">
-          <Roll>{label}</Roll>
-        </span>
-        <span className="tarja-note">{note}</span>
-      </span>
-      <ArrowUpRight aria-hidden="true" className="tarja-arrow" />
-    </a>
-  );
-}
-
-function OrderTarja({
-  tone = "paper",
-  className = "",
-  label = "Pedir agora",
-  ariaLabel,
-}: {
-  tone?: "paper" | "ink" | "line";
-  className?: string;
-  label?: string;
-  ariaLabel?: string;
-}) {
-  return (
-    <Tarja
-      href={brand.menu}
-      icon={<ShoppingBag />}
-      label={label}
-      note="Delivery ou retirada"
-      tone={tone}
-      className={className}
-      ariaLabel={ariaLabel}
-    />
-  );
-}
-
-function VisitTarja({
-  tone = "flag",
-  className = "",
-}: {
-  tone?: "flag" | "paper" | "line";
-  className?: string;
-}) {
-  return (
-    <Tarja
-      href={brand.google}
-      icon={<MapPin />}
-      label="Como chegar"
-      note="Salão no Bairro Industrial"
-      tone={tone}
-      className={className}
-    />
   );
 }
 
@@ -571,180 +467,6 @@ function Hero() {
   );
 }
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
-// Motion entrance for the flavor cards: the card unmasks upward while its photo
-// settles from a slight zoom and the text lines follow one after another.
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 56, clipPath: "inset(16% 0% 0% 0%)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    clipPath: "inset(0% 0% 0% 0%)",
-    transition: { duration: 1.1, ease, staggerChildren: 0.09, delayChildren: 0.2 },
-  },
-};
-const mediaVariants: Variants = {
-  hidden: { scale: 1.18 },
-  visible: { scale: 1, transition: { duration: 1.8, ease } },
-};
-const lineVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease } },
-};
-const inView = {
-  initial: "hidden",
-  whileInView: "visible",
-  viewport: { once: true, amount: 0.2 },
-} as const;
-
-function Price({ value, className = "" }: { value: string; className?: string }) {
-  return isFilled(value) ? (
-    <p className={`font-label text-2xl tracking-[0.06em] ${className}`}>{value}</p>
-  ) : null;
-}
-
-function Lineup() {
-  const [headliner, ...acts] = pizzas;
-
-  return (
-    <Poster id="sabores" labelledBy="sabores-titulo" className="bg-newsprint text-ink">
-      <div className="mx-auto max-w-screen-2xl px-4 pb-16 pt-16 md:px-8 md:pb-24 md:pt-24">
-        <h2 id="sabores-titulo" className="pass pass-3 section-title">
-          As atrações da noite
-        </h2>
-
-        <MotionConfig reducedMotion="user">
-          <motion.article
-            {...inView}
-            variants={cardVariants}
-            id={headliner.slug}
-            aria-labelledby={`${headliner.slug}-nome`}
-            className="feature anchor-target mt-10 grid overflow-hidden bg-ink text-newsprint md:mt-14 md:min-h-[30rem] md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"
-          >
-            <div className="flavor-media aspect-[4/5] md:aspect-auto">
-              <motion.img
-                variants={mediaVariants}
-                src={headliner.image}
-                alt={headliner.imageAlt}
-                width={headliner.width}
-                height={headliner.height}
-                loading="lazy"
-                decoding="async"
-                className="zoom"
-              />
-            </div>
-            <div className="flex flex-col justify-center gap-5 p-6 md:p-10 lg:p-14">
-              <motion.h3
-                variants={lineVariants}
-                id={`${headliner.slug}-nome`}
-                className="font-didone text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.02]"
-              >
-                {headliner.name}
-              </motion.h3>
-              <motion.p
-                variants={lineVariants}
-                className="max-w-[46ch] text-lg leading-relaxed text-newsprint/85"
-              >
-                <span className="sr-only">Ingredientes: </span>
-                {headliner.ingredients}
-              </motion.p>
-              <Price value={headliner.price} />
-              <motion.div variants={lineVariants}>
-                <OrderTarja
-                  tone="line"
-                  label="Pedir esta pizza"
-                  ariaLabel={`Pedir esta pizza: ${headliner.name}`}
-                  className="sm:max-w-sm"
-                />
-              </motion.div>
-            </div>
-          </motion.article>
-
-          <motion.div
-            {...inView}
-            variants={{ visible: { transition: { staggerChildren: 0.18 } } }}
-            className="mt-6 grid gap-6 md:mt-8 md:grid-cols-2"
-          >
-            {acts.map((act) => (
-              <motion.article
-                key={act.slug}
-                variants={cardVariants}
-                id={act.slug}
-                aria-labelledby={`${act.slug}-nome`}
-                className="act anchor-target flex flex-col border border-ink/80"
-              >
-                {"image" in act ? (
-                  <div className="flavor-media aspect-[4/3] border-b border-ink/80">
-                    <motion.img
-                      variants={mediaVariants}
-                      src={act.image}
-                      alt={act.imageAlt}
-                      width={act.width}
-                      height={act.height}
-                      loading="lazy"
-                      decoding="async"
-                      className="zoom"
-                    />
-                  </div>
-                ) : (
-                  <motion.div
-                    variants={lineVariants}
-                    aria-hidden="true"
-                    className="type-plate paper relative flex aspect-[4/3] items-end border-b border-ink/80 bg-flag p-6 md:p-8"
-                  >
-                    <p className="text-newsprint">
-                      <span className="font-didone text-[clamp(2.4rem,5vw,4.2rem)] leading-none">
-                        Filé mignon
-                      </span>
-                      <span className="mt-2 font-label text-2xl uppercase tracking-[0.12em] text-newsprint/85">
-                        com bacon e gorgonzola
-                      </span>
-                    </p>
-                  </motion.div>
-                )}
-                <div className="flex flex-1 flex-col gap-3 p-6 md:p-8">
-                  <motion.h3
-                    variants={lineVariants}
-                    id={`${act.slug}-nome`}
-                    className="font-didone text-4xl leading-tight md:text-5xl"
-                  >
-                    {act.name}
-                  </motion.h3>
-                  <motion.p
-                    variants={lineVariants}
-                    className="max-w-[46ch] text-lg leading-relaxed text-ink/80"
-                  >
-                    <span className="sr-only">Ingredientes: </span>
-                    {act.ingredients}
-                  </motion.p>
-                  <Price value={act.price} className="text-ink" />
-                  <motion.div variants={lineVariants} className="mt-auto pt-3">
-                    <OrderTarja
-                      tone="ink"
-                      label="Pedir esta pizza"
-                      ariaLabel={`Pedir esta pizza: ${act.name}`}
-                      className="sm:max-w-sm"
-                    />
-                  </motion.div>
-                </div>
-              </motion.article>
-            ))}
-          </motion.div>
-        </MotionConfig>
-        <p className="pass pass-3 mt-8 max-w-[60ch] text-base leading-relaxed text-ink/80">
-          Esses são os destaques. O cardápio completo, com todos os sabores salgados e doces, está
-          no{" "}
-          <a href={brand.menu} target="_blank" rel="noreferrer" className="inline-link">
-            pedido online
-          </a>
-          .
-        </p>
-      </div>
-    </Poster>
-  );
-}
-
 /** One wedge of the drawn pizza. */
 function wedgePath(radius: number, start: number, end: number) {
   const x0 = Math.cos(start) * radius;
@@ -1017,7 +739,7 @@ export function HomePage() {
       <SiteHeader />
       <main id="conteudo" tabIndex={-1}>
         <Hero />
-        <Lineup />
+        <MenuSection />
         <Sizes />
         <Mural />
         <Doors />

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HomePage } from "@/components/brand-site";
-import { brand, pizzas } from "@/data/brand";
+import { brand, cardapio, menuImage, pizzas } from "@/data/brand";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -50,7 +50,25 @@ export const Route = createFileRoute("/")({
           image: ["/images/hero-poster.webp", "/images/facade.webp"],
           logo: brand.logo,
           servesCuisine: ["Pizza"],
-          hasMenu: brand.menu,
+          hasMenu: {
+            "@type": "Menu",
+            url: brand.menu,
+            hasMenuSection: [
+              { kind: "salgada", name: "Pizzas salgadas" },
+              { kind: "doce", name: "Pizzas doces" },
+            ].map((section) => ({
+              "@type": "MenuSection",
+              name: section.name,
+              hasMenuItem: cardapio
+                .filter((item) => item.kind === section.kind)
+                .map((item) => ({
+                  "@type": "MenuItem",
+                  name: item.name,
+                  description: item.ingredients,
+                  image: menuImage(item.slug),
+                })),
+            })),
+          },
           hasMap: brand.google,
           address: {
             "@type": "PostalAddress",

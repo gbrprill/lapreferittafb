@@ -239,3 +239,94 @@ export const palette = [
     avoid: "Informações essenciais pequenas.",
   },
 ] as const;
+
+// Cardápio da casa: 10 sabores com a foto real de cada um sobre a tábua (recortada no aro de madeira).
+// `price` fica como placeholder até a casa informar; o site não mostra valores entre colchetes.
+export type MenuItem = {
+  slug: string;
+  name: string;
+  kind: "salgada" | "doce";
+  ingredients: string;
+  price: string;
+};
+
+export const cardapio: readonly MenuItem[] = [
+  {
+    slug: "americana",
+    name: "Americana",
+    kind: "salgada",
+    ingredients: "Molho de tomate, mussarela, calabresa, bacon, catupiry e orégano.",
+    price: "[PREÇO]",
+  },
+  {
+    slug: "calabresa-caramell",
+    name: "Calabresa Caramell",
+    kind: "salgada",
+    ingredients: "Molho de tomate, calabresa, queijo coalho e cebola caramelizada.",
+    price: "[PREÇO]",
+  },
+  {
+    slug: "carne-seca-especial",
+    name: "Carne Seca Especial",
+    kind: "salgada",
+    ingredients:
+      "Molho de tomate, muçarela, carne seca, requeijão cremoso, parmesão, pimenta biquinho e cebolinha.",
+    price: "[PREÇO]",
+  },
+  {
+    slug: "costela-com-barbecue",
+    name: "Costela com Barbecue",
+    kind: "salgada",
+    ingredients:
+      "Molho de tomate, mussarela, costela bovina desfiada, requeijão cremoso e barbecue.",
+    price: "[PREÇO]",
+  },
+  {
+    slug: "file-americano",
+    name: "Filé Americano",
+    kind: "salgada",
+    ingredients: "Molho de tomate, filé mignon, mussarela, cheddar e orégano.",
+    price: "[PREÇO]",
+  },
+  {
+    slug: "file-com-gorgonzola",
+    name: "Filé com Gorgonzola",
+    kind: "salgada",
+    ingredients: "Molho de tomate, filé mignon, mussarela, gorgonzola e orégano.",
+    price: "[PREÇO]",
+  },
+  {
+    slug: "mignon-crispy",
+    name: "Mignon Crispy",
+    kind: "salgada",
+    ingredients: "Molho de tomate, filé mignon, requeijão, mussarela e cebola crispy.",
+    price: "[PREÇO]",
+  },
+  {
+    slug: "temaki",
+    name: "Temaki",
+    kind: "salgada",
+    ingredients: "Molho branco, cream cheese, salmão grelhado, molho tarê e cebolinha.",
+    price: "[PREÇO]",
+  },
+  {
+    slug: "raffaello-supremo",
+    name: "Raffaello Supremo",
+    kind: "doce",
+    ingredients: "Molho branco, chocolate branco, coco ralado, Raffaello e morangos.",
+    price: "[PREÇO]",
+  },
+  {
+    slug: "uvas-e-avela",
+    name: "Uvas e Avelã",
+    kind: "doce",
+    ingredients: "Molho branco, chocolate branco, uvas sem sementes e creme de avelã.",
+    price: "[PREÇO]",
+  },
+];
+
+export const menuImage = (slug: string, size: "lg" | "sm" = "lg") =>
+  `/images/menu/${slug}${size === "sm" ? "-sm" : ""}.webp`;
+
+/** "A, b, c e d." -> ["A", "b", "c", "d"] */
+export const splitIngredients = (text: string) => text.replace(/\.$/, "").split(/, | e (?=[^,]+$)/);

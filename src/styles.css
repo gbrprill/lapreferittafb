@@ -1365,3 +1365,421 @@
     scroll-snap-align: start;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Cardapio: a list that opens, and a pizza that slides onto the table */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .menu-section {
+    overflow-x: clip;
+  }
+
+  .menu-open {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    min-height: 3.25rem;
+    margin-top: 2rem;
+    padding-inline: 1.4rem 1.1rem;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-family: var(--font-label);
+    font-size: 1.35rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 600ms var(--ease-out) 60ms;
+  }
+  .menu-open::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--ink);
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 800ms var(--ease-out);
+  }
+  .menu-open:hover,
+  .menu-open:focus-visible,
+  .menu-open.is-open {
+    color: var(--newsprint);
+  }
+  .menu-open:hover::before,
+  .menu-open:focus-visible::before,
+  .menu-open.is-open::before {
+    clip-path: inset(0 0 0 0);
+  }
+  .menu-open-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+    transition: transform 900ms var(--ease-out);
+  }
+  .menu-open.is-open .menu-open-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Three pizzas already on the table while the menu is closed. */
+  .menu-teaser {
+    position: relative;
+    width: 100%;
+    max-width: 27rem;
+    height: 11rem;
+    justify-self: center;
+  }
+  .menu-teaser-plate {
+    position: absolute;
+    width: 9.5rem;
+    aspect-ratio: 1;
+    filter: drop-shadow(0 14px 16px oklch(0.17 0.006 50 / 0.28));
+    transition:
+      rotate 1400ms var(--ease-out),
+      translate 1400ms var(--ease-out);
+    pointer-events: none;
+  }
+  .menu-teaser-0 {
+    left: 0;
+    top: 1.25rem;
+  }
+  .menu-teaser-1 {
+    left: calc(50% - 5.5rem);
+    top: 0;
+    width: 11rem;
+    z-index: 1;
+  }
+  .menu-teaser-2 {
+    right: 0;
+    top: 1.5rem;
+  }
+  .menu-section:has(.menu-open:hover) .menu-teaser-0 {
+    rotate: -18deg;
+    translate: -0.4rem 0;
+  }
+  .menu-section:has(.menu-open:hover) .menu-teaser-1 {
+    rotate: 24deg;
+    translate: 0 -0.4rem;
+  }
+  .menu-section:has(.menu-open:hover) .menu-teaser-2 {
+    rotate: -14deg;
+    translate: 0.4rem 0;
+  }
+  @media (min-width: 768px) {
+    .menu-teaser {
+      height: 15rem;
+    }
+    .menu-teaser-plate {
+      width: 12.5rem;
+    }
+    .menu-teaser-1 {
+      left: calc(50% - 7.25rem);
+      width: 14.5rem;
+    }
+  }
+
+  .menu-panel {
+    overflow: hidden;
+  }
+
+  /* ---- list ---- */
+  .menu-list {
+    display: grid;
+    gap: 3rem;
+    padding-top: 0.5rem;
+  }
+  @media (min-width: 768px) {
+    .menu-list {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      column-gap: clamp(3rem, 6vw, 6rem);
+    }
+  }
+  .menu-group {
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid oklch(0.17 0.006 50 / 0.3);
+    font-family: var(--font-label);
+    font-size: 1.2rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: oklch(0.17 0.006 50 / 0.75);
+  }
+  .menu-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3.4rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    min-height: 4.75rem;
+    padding-block: 0.6rem;
+    border-bottom: 1px solid oklch(0.17 0.006 50 / 0.14);
+    text-align: left;
+    cursor: pointer;
+  }
+  .menu-row::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 900ms var(--ease-out);
+  }
+  .menu-row:hover::after,
+  .menu-row:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .menu-row-thumb {
+    width: 3.4rem;
+    height: 3.4rem;
+    filter: drop-shadow(0 5px 6px oklch(0.17 0.006 50 / 0.25));
+    transition:
+      rotate 1200ms var(--ease-out),
+      scale 1000ms var(--ease-out);
+  }
+  .menu-row-name {
+    font-family: var(--font-didone);
+    font-weight: 500;
+    font-size: clamp(1.55rem, 2.4vw, 2.1rem);
+    line-height: 1.1;
+    transition:
+      translate 800ms var(--ease-out),
+      color 500ms ease;
+  }
+  .menu-row-arrow {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--tomato-deep);
+    opacity: 0.35;
+    transition:
+      translate 800ms var(--ease-out),
+      opacity 500ms ease;
+  }
+  .menu-row:hover .menu-row-thumb,
+  .menu-row:focus-visible .menu-row-thumb {
+    rotate: 45deg;
+    scale: 1.14;
+  }
+  .menu-row:hover .menu-row-name,
+  .menu-row:focus-visible .menu-row-name {
+    translate: 0.35rem 0;
+  }
+  .menu-row:hover .menu-row-arrow,
+  .menu-row:focus-visible .menu-row-arrow {
+    translate: 0.35rem 0;
+    opacity: 1;
+  }
+  .menu-note {
+    margin-top: 2rem;
+    max-width: 38ch;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: oklch(0.17 0.006 50 / 0.78);
+  }
+
+  /* ---- detail ---- */
+  .menu-detail {
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+    padding-top: 0.5rem;
+  }
+  @media (min-width: 1024px) {
+    .menu-detail {
+      grid-template-columns: auto minmax(0, 1.1fr) minmax(0, 1fr);
+      column-gap: clamp(2rem, 4vw, 4rem);
+    }
+  }
+  .menu-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-self: start;
+    min-height: 2.75rem;
+    font-family: var(--font-label);
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: oklch(0.17 0.006 50 / 0.8);
+    transition: color 500ms ease;
+  }
+  .menu-back-arrow {
+    width: 3rem;
+    height: 2rem;
+    transition: translate 800ms var(--ease-out);
+  }
+  .menu-back:hover {
+    color: var(--ink);
+  }
+  .menu-back:hover .menu-back-arrow {
+    translate: -0.4rem 0;
+  }
+  @media (min-width: 1024px) {
+    .menu-detail .menu-table {
+      width: min(100%, 34rem);
+    }
+    .menu-back {
+      flex-direction: column;
+      align-self: center;
+      gap: 0.4rem;
+    }
+    .menu-back-arrow {
+      width: 3.5rem;
+      height: 2.25rem;
+    }
+  }
+
+  .menu-table {
+    position: relative;
+    justify-self: center;
+    width: min(82vw, 34rem);
+    aspect-ratio: 1;
+    margin-bottom: 2.5rem;
+    touch-action: pan-y;
+  }
+  .menu-plate {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-drag: none;
+    touch-action: pan-y;
+    will-change: transform;
+  }
+  .menu-plate-shadow {
+    position: absolute;
+    inset: 4%;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      oklch(0.17 0.006 50 / 0.42),
+      oklch(0.17 0.006 50 / 0.16) 70%,
+      transparent
+    );
+    translate: 3% 5%;
+    filter: blur(16px);
+  }
+  .menu-swipe-hint {
+    position: absolute;
+    left: 50%;
+    bottom: -2.5rem;
+    translate: -50% 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    white-space: nowrap;
+    font-family: var(--font-label);
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: oklch(0.17 0.006 50 / 0.6);
+    transition: opacity 700ms ease;
+  }
+  .menu-swipe-hint svg {
+    width: 1.4rem;
+    height: 1rem;
+  }
+  .menu-swipe-hint.is-done {
+    opacity: 0;
+  }
+
+  .menu-copy {
+    max-width: 34rem;
+  }
+  .menu-name {
+    font-family: var(--font-didone);
+    font-weight: 500;
+    font-size: clamp(2.5rem, 4.8vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .menu-name:focus {
+    outline: none;
+  }
+  .menu-name:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 6px;
+  }
+  .menu-kind {
+    margin-top: 0.9rem;
+    font-family: var(--font-label);
+    font-size: 1.15rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tomato-deep);
+  }
+  .menu-ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0;
+    margin-top: 1.4rem;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: oklch(0.17 0.006 50 / 0.86);
+  }
+  .menu-ingredients li:not(:last-child)::after {
+    content: "·";
+    margin-inline: 0.6rem;
+    color: var(--tomato-deep);
+  }
+  .menu-price {
+    margin-top: 1.2rem;
+    font-family: var(--font-label);
+    font-size: 1.6rem;
+    letter-spacing: 0.06em;
+  }
+  .menu-pager {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid oklch(0.17 0.006 50 / 0.2);
+  }
+  .menu-step {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-self: start;
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    font-family: var(--font-label);
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: oklch(0.17 0.006 50 / 0.8);
+    transition: color 500ms ease;
+  }
+  .menu-step svg {
+    flex: none;
+    width: 2.4rem;
+    height: 1.5rem;
+    transition: translate 800ms var(--ease-out);
+  }
+  .menu-step:hover {
+    color: var(--ink);
+  }
+  .menu-step:hover svg {
+    translate: -0.3rem 0;
+  }
+  .menu-step-next {
+    justify-self: end;
+    text-align: right;
+  }
+  .menu-step-next:hover svg {
+    translate: 0.3rem 0;
+  }
+  .menu-count {
+    font-family: var(--font-label);
+    font-size: 1.1rem;
+    letter-spacing: 0.12em;
+    color: oklch(0.17 0.006 50 / 0.65);
+  }
+}
