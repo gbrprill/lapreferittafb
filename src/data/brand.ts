@@ -1,8 +1,3 @@
-import pizza1 from "@/assets/pizza1.webp.asset.json";
-import pizza2 from "@/assets/pizza2.webp.asset.json";
-import pizza3 from "@/assets/pizza3.webp.asset.json";
-import pizza4 from "@/assets/pizza4.webp.asset.json";
-
 // Fotos reais enviadas pela pizzaria (sem imagens geradas por IA).
 const logo = "/images/logo.webp";
 const logoMono = "/images/logo-mono.webp";
@@ -10,6 +5,10 @@ const facade = "/images/facade.webp";
 const pizzaDoceMorango = "/images/pizza-doce-morango.webp";
 const pizzaTomateManjericao = "/images/pizza-tomate-manjericao.webp";
 const pizzaBaconPaddle = "/images/pizza-bacon-paddle.webp";
+const pizza1 = { url: "/images/pizza1.webp" };
+const pizza2 = { url: "/images/pizza2.webp" };
+const pizza3 = { url: "/images/pizza3.webp" };
+const pizza4 = { url: "/images/pizza4.webp" };
 
 export const brand = {
   name: "La Preferitta Pizzaria",
