@@ -60,14 +60,13 @@ export type DaySchedule = {
 };
 
 /**
- * Horários confirmados pela casa em 25/09/2026.
+ * Horários confirmados pela casa em 28/09/2026 (iguais aos do Google).
  * Delivery e retirada seguem os mesmos dias e horários do salão.
- * O Google ainda mostra a segunda aberta (18h–22h); o dono vai corrigir lá.
  */
 export const schedule: Record<Weekday, DaySchedule> = {
   0: { salon: { opens: "18:00", closes: "22:30" }, rodizio: true },
-  1: { salon: null, rodizio: false },
-  2: { salon: { opens: "18:00", closes: "22:30" }, rodizio: false },
+  1: { salon: { opens: "18:00", closes: "22:00" }, rodizio: false },
+  2: { salon: { opens: "18:00", closes: "22:00" }, rodizio: false },
   3: { salon: { opens: "18:00", closes: "22:30" }, rodizio: false },
   4: { salon: { opens: "18:00", closes: "22:30" }, rodizio: false },
   5: { salon: { opens: "18:00", closes: "23:00" }, rodizio: true },
@@ -110,58 +109,75 @@ export type Wine = {
   slug: string;
   name: string;
   style: "tinto" | "branco";
+  /** Uva ou corte e origem, como aparece no rótulo. */
+  grape: string;
   /** Foto da garrafa em /public/images/vinhos. */
   image: string;
-  /** Só os destaques têm descrição na página. */
-  note?: string;
+  note: string;
 };
 
-/** Rótulos da carta (a disponibilidade muda; preços ficam no cardápio online). */
+/**
+ * Carta de vinhos, na ordem em que as garrafas aparecem lado a lado.
+ * A disponibilidade muda; preços ficam no cardápio online.
+ * Notas de Oveja Chardonnay, Oveja Malbec e DV Catena Malbec: enviadas pela casa.
+ * As outras quatro foram escritas a partir das fichas das vinícolas (28/09/2026) — revisar com a casa.
+ */
 export const wines: readonly Wine[] = [
   {
     slug: "oveja-chardonnay",
     name: "Oveja Chardonnay",
     style: "branco",
+    grape: "Chardonnay · Mendoza",
     image: "/images/vinhos/oveja-chardonnay.webp",
     note: "Branco fresco e expressivo, com notas cítricas, maçã verde e pêssego.",
-  },
-  {
-    slug: "oveja-malbec",
-    name: "Oveja Malbec",
-    style: "tinto",
-    image: "/images/vinhos/oveja-malbec.webp",
-    note: "Tinto elegante, com frutas negras maduras, especiarias e toque de chocolate.",
-  },
-  {
-    slug: "dv-catena-malbec",
-    name: "DV Catena Malbec",
-    style: "tinto",
-    image: "/images/vinhos/dv-catena-malbec.webp",
-    note: "Complexo e aveludado, elaborado com uvas de vinhedos de altitude em Mendoza.",
   },
   {
     slug: "buenos-hermanos",
     name: "Buenos Hermanos",
     style: "tinto",
+    grape: "Cabernet Franc · Gimenez Riili, Mendoza",
     image: "/images/vinhos/buenos-hermanos.webp",
+    note: "Frutas vermelhas maduras, toque herbáceo típico da Cabernet Franc e final fresco e macio.",
+  },
+  {
+    slug: "oveja-malbec",
+    name: "Oveja Malbec",
+    style: "tinto",
+    grape: "Malbec · Mendoza",
+    image: "/images/vinhos/oveja-malbec.webp",
+    note: "Tinto elegante, com frutas negras maduras, especiarias e toque de chocolate.",
   },
   {
     slug: "alma-negra",
     name: "Alma Negra",
     style: "tinto",
+    grape: "Blend tinto · Ernesto Catena, Mendoza",
     image: "/images/vinhos/alma-negra.webp",
+    note: "Corte misterioso e envolvente, com frutas escuras, especiarias e taninos aveludados.",
   },
   {
     slug: "cordero-con-piel-de-lobo",
     name: "Cordero con Piel de Lobo",
     style: "tinto",
+    grape: "Malbec · Mendoza",
     image: "/images/vinhos/cordero-con-piel-de-lobo.webp",
+    note: "Malbec frutado e fácil de beber, com ameixa, violeta e um leve toque de baunilha.",
+  },
+  {
+    slug: "dv-catena-malbec",
+    name: "DV Catena Malbec",
+    style: "tinto",
+    grape: "Malbec · Catena, Mendoza",
+    image: "/images/vinhos/dv-catena-malbec.webp",
+    note: "Complexo e aveludado, elaborado com uvas de vinhedos de altitude em Mendoza.",
   },
   {
     slug: "dv-catena-cabernet",
     name: "DV Catena Cabernet Sauvignon",
     style: "tinto",
+    grape: "Cabernet Sauvignon · Catena, Mendoza",
     image: "/images/vinhos/dv-catena-cabernet.webp",
+    note: "Encorpado e estruturado, com cassis, pimenta-preta e taninos firmes de vinhedos de altitude.",
   },
 ];
 
@@ -218,54 +234,3 @@ export const rodizioHoursText = (() => {
 
 export const closedDaysText = joinPt(weekOrder.filter((d) => !schedule[d].salon).map(plural));
 export const deliveryFollowsSalon = deliverySchedule === schedule;
-
-// ---------------------------------------------------------------- perguntas frequentes
-
-export type Faq = { q: string; a: string; link?: { label: string; href: string } };
-
-const sizesText = sizeInfo
-  .map((s) => `${s.size} (${s.diameter} cm, ${s.slices} fatias): ${flavorsLabel(s.flavors)}`)
-  .join("; ");
-
-/** Respostas confirmadas pela casa em 25/09/2026. Sem resposta confirmada: "Consulte a equipe". */
-export const faq: Faq[] = [
-  {
-    q: "Quais são os dias do rodízio?",
-    a: `O rodízio acontece ${rodizioHoursText}.`,
-  },
-  {
-    q: "É necessário reservar?",
-    a: "Não é obrigatório. Se quiser garantir sua mesa, peça uma reserva pelo WhatsApp: escolha a data, o horário e o número de pessoas, e a equipe confirma a disponibilidade.",
-  },
-  {
-    q: "A La Preferitta possui opções à la carte?",
-    a: "Sim. O à la carte funciona em todos os dias de funcionamento, inclusive nas noites de rodízio.",
-  },
-  {
-    q: "Há delivery e retirada?",
-    a: `Sim. Os pedidos são feitos pelo cardápio online${deliveryFollowsSalon ? ", nos mesmos dias e horários do salão" : ""}.`,
-    link: { label: "Abrir o cardápio online", href: site.links.menu },
-  },
-  { q: "Quantos sabores posso escolher em cada tamanho?", a: `${sizesText}.` },
-  {
-    q: "A pizzaria possui pizzas doces?",
-    a: "Sim. As pizzas doces são uma especialidade da casa, como a Raffaello Supremo e a Uvas e Avelã.",
-  },
-  {
-    q: "Há carta de vinhos?",
-    a: `Sim. A carta reúne tintos e brancos, como ${joinPt(wines.map((w) => w.name))}. A disponibilidade e os preços estão no cardápio online.`,
-  },
-  {
-    q: "Quais são as formas de pagamento?",
-    a: `${joinPt([...site.payments]).replace(/^./, (c) => c.toUpperCase())}.`,
-  },
-  {
-    q: "Como funciona o programa de fidelidade?",
-    a: "Consulte a equipe para confirmar as regras e os benefícios do programa de fidelidade.",
-  },
-  {
-    q: "Onde fica a La Preferitta?",
-    a: `${site.address.full}.`,
-    link: { label: "Ver no mapa", href: site.links.google },
-  },
-];

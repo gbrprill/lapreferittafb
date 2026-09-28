@@ -7,7 +7,8 @@ import { Poster, Tricolor } from "@/components/poster";
 import { useOnScreen, useReducedMotion } from "@/hooks/use-motion";
 import { ReservationProvider } from "@/components/reservation";
 import { useReservation } from "@/lib/reservation-context";
-import { Experience, Faq, Loyalty, Reviews, Salon, Visit, Wines } from "@/components/sections";
+import { Experience, Loyalty, Reviews, Salon, Visit } from "@/components/sections";
+import { Wines } from "@/components/wines";
 import { SiteLoader } from "@/components/site-loader";
 import { OrderTarja, ReserveTarja, Roll, Tarja, VisitTarja } from "@/components/tarja";
 import { playHeroSequence } from "@/lib/hero-sequence";
@@ -314,7 +315,7 @@ function HeroMedia({ playing }: { playing: boolean }) {
   );
 }
 
-const offer = ["Rodízio", "À la carte", "Delivery", "Pizzas doces", "Carta de vinhos"];
+const offer = ["Rodízio", "À la carte", "Delivery", "Carta de vinhos"];
 
 function Hero() {
   const today = useDateStamp();
@@ -355,17 +356,17 @@ function Hero() {
           <h1 id="titulo" className="hero-title">
             <span className="mask">
               <span data-seq="line" className="block">
-                Mais que pizza.
+                Mais que pizza,
               </span>
             </span>
             <span className="mask">
               <span data-seq="line" className="hero-and block">
-                Uma experiência
+                uma experiência
               </span>
             </span>
             <span className="mask">
               <span data-seq="line" className="block">
-                La Preferitta
+                La Preferitta.
               </span>
             </span>
           </h1>
@@ -527,7 +528,6 @@ function InstagramWall() {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const onScreen = useOnScreen(ref);
-  const [paused, setPaused] = useState(false);
   // The strip repeats once only so the loop looks seamless; the copy is hidden from assistive tech and keyboard.
   const strip = reduce ? mural : [...mural, ...mural];
 
@@ -545,18 +545,6 @@ function InstagramWall() {
             </p>
           </div>
           <div className="pass pass-3 flex flex-wrap items-center gap-3">
-            {!reduce && (
-              <button
-                type="button"
-                className="marquee-toggle"
-                onClick={() => setPaused((value) => !value)}
-                aria-pressed={paused}
-                aria-controls="mural-fotos"
-              >
-                {paused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
-                <span>{paused ? "Retomar" : "Pausar"}</span>
-              </button>
-            )}
             <Tarja
               href={site.links.instagram}
               icon={<Instagram />}
@@ -570,7 +558,7 @@ function InstagramWall() {
       </div>
       <div
         ref={ref}
-        className={`pass pass-1 marquee mt-8 pb-16 md:mt-12 md:pb-24 ${paused || !onScreen ? "is-paused" : ""}`}
+        className={`pass pass-1 marquee mt-8 pb-16 md:mt-12 md:pb-24 ${onScreen ? "" : "is-paused"}`}
       >
         <ul
           id="mural-fotos"
@@ -634,7 +622,6 @@ export function HomePage() {
           <Reviews />
           <Visit />
           <InstagramWall />
-          <Faq />
           <Loyalty />
         </main>
         <SiteFooter />

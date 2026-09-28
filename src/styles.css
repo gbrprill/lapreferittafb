@@ -71,6 +71,7 @@
   --color-surface: var(--surface);
   --color-tomato: var(--tomato);
   --color-tomato-deep: var(--tomato-deep);
+  --color-wine: var(--wine);
   --color-tomato-light: var(--tomato-light);
   --color-flag: var(--flag);
   --color-flag-deep: var(--flag-deep);
@@ -122,6 +123,8 @@
   /* Poster world: tomato paper, flag green, newsprint, key ink. */
   --tomato: oklch(0.5 0.155 25);
   --tomato-deep: oklch(0.38 0.115 22);
+  /* Deep burgundy, the wine section's own field. */
+  --wine: oklch(0.27 0.085 8);
   --tomato-light: oklch(0.78 0.09 40);
   --flag: oklch(0.42 0.085 152);
   --flag-deep: oklch(0.33 0.07 152);
@@ -1338,7 +1341,6 @@
       .logo-link img,
       .mobile-link,
       .occasion-art img,
-      .wine-bottle,
       .salon-photo img,
       .menu-full svg,
       .rsv-close,
@@ -1874,7 +1876,7 @@
   }
   @media (min-width: 1024px) {
     .occasions {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 2.5rem;
     }
   }
@@ -1941,43 +1943,6 @@
   }
 
   /* ---- vinhos ---- */
-  .wines {
-    display: grid;
-    gap: 3rem 2rem;
-  }
-  @media (min-width: 768px) {
-    .wines {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-  .wine {
-    display: flex;
-    flex-direction: column;
-  }
-  .wine-shelf {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    height: 20rem;
-    padding-bottom: 1.25rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid oklch(0.965 0.01 85 / 0.25);
-    background: radial-gradient(
-      ellipse 45% 12% at 50% 96%,
-      oklch(0.12 0.03 22 / 0.55),
-      transparent 70%
-    );
-  }
-  .wine-bottle {
-    height: 100%;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 18px 18px oklch(0.12 0.03 22 / 0.5));
-    transition: translate 1100ms var(--ease-out);
-  }
-  .wine:hover .wine-bottle {
-    translate: 0 -8px;
-  }
   .wine-style {
     font-family: var(--font-label);
     font-size: 1.1rem;
@@ -2122,59 +2087,6 @@
     font-size: 0.95rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-  }
-
-  /* ---- perguntas frequentes ---- */
-  .faq-item {
-    border-top: 1px solid oklch(0.965 0.01 85 / 0.18);
-  }
-  .faq-item:last-child {
-    border-bottom: 1px solid oklch(0.965 0.01 85 / 0.18);
-  }
-  .faq-q {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    min-height: 3.75rem;
-    padding-block: 0.9rem;
-    cursor: pointer;
-    list-style: none;
-    font-family: var(--font-didone);
-    font-weight: 500;
-    font-size: clamp(1.3rem, 2vw, 1.6rem);
-    line-height: 1.25;
-    transition: color 400ms ease;
-  }
-  .faq-q::-webkit-details-marker {
-    display: none;
-  }
-  .faq-q:hover {
-    color: var(--tomato-light);
-  }
-  .faq-icon {
-    flex: none;
-    width: 1.4rem;
-    height: 1.4rem;
-    transition: transform 600ms var(--ease-out);
-  }
-  .faq-item[open] .faq-icon {
-    transform: rotate(180deg);
-  }
-  .faq-a {
-    display: grid;
-    gap: 0.75rem;
-    max-width: 64ch;
-    padding-bottom: 1.4rem;
-    line-height: 1.65;
-    color: oklch(0.965 0.01 85 / 0.85);
-  }
-  .faq-a a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-    width: fit-content;
-    color: var(--newsprint);
   }
 
   /* ---- mobile action bar: three doors ---- */
@@ -2567,5 +2479,158 @@
   .rsv :focus-visible {
     outline: 2px solid var(--ink);
     outline-offset: 2px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Carta de vinhos: a shelf of bottles, one steps forward             */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .cellar {
+    --row-h: 17rem;
+    position: relative;
+    height: 27rem;
+  }
+  .cellar-row {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    align-items: end;
+    gap: clamp(0.25rem, 1.5vw, 1.5rem);
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid oklch(0.965 0.01 85 / 0.22);
+    background: radial-gradient(
+      ellipse 50% 8% at 50% 100%,
+      oklch(0.1 0.03 8 / 0.6),
+      transparent 70%
+    );
+  }
+  .cellar-slot {
+    display: flex;
+    justify-content: center;
+  }
+  .bottle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    width: 100%;
+    cursor: pointer;
+    transition: opacity 500ms ease;
+  }
+  .bottle-img {
+    height: var(--row-h);
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 16px 16px oklch(0.1 0.03 8 / 0.55));
+  }
+  .bottle.is-active {
+    min-height: var(--row-h);
+  }
+  .bottle-name {
+    min-height: 2.4em;
+    font-family: var(--font-label);
+    font-size: 1rem;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+    color: oklch(0.965 0.01 85 / 0.85);
+    transition: opacity 400ms ease;
+  }
+  .cellar.has-choice .bottle:not(.is-active),
+  .cellar.has-choice .bottle-name {
+    opacity: 0;
+  }
+  .bottle:focus-visible {
+    outline: none;
+  }
+  .bottle:focus-visible .bottle-name {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  .cellar-feature {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .cellar-feature-inner {
+    position: absolute;
+    inset: 0 0 1.25rem 0;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-rows: minmax(0, 100%);
+    align-items: end;
+    gap: clamp(1.5rem, 5vw, 5rem);
+    pointer-events: auto;
+  }
+  .cellar-feature-bottle {
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+    min-height: 0;
+  }
+  .cellar-feature-bottle img {
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 24px 24px oklch(0.1 0.03 8 / 0.6));
+  }
+  .cellar-feature-copy {
+    align-self: center;
+    max-width: 30rem;
+  }
+  .wine-grape {
+    margin-top: 0.6rem;
+    font-family: var(--font-label);
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    color: var(--tomato-light);
+  }
+  .cellar-close {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    margin-top: 1rem;
+    font-family: var(--font-label);
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .cellar-close svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  @media (max-width: 767px) {
+    .cellar {
+      --row-h: 11rem;
+      height: 25rem;
+    }
+    .cellar-row {
+      gap: 0.2rem;
+    }
+    .bottle-name {
+      display: none;
+    }
+    .cellar-feature-inner {
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+      gap: 1rem;
+    }
+    .cellar-feature-bottle {
+      justify-content: center;
+    }
+    .cellar-feature-copy .wine-name {
+      font-size: 1.7rem;
+    }
+    .cellar-feature-copy .wine-note {
+      font-size: 0.98rem;
+    }
   }
 }

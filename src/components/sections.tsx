@@ -5,7 +5,6 @@ import { OrderTarja, ReserveTarja, Tarja, VisitTarja } from "@/components/tarja"
 import { brand, menuImage } from "@/data/brand";
 import {
   deliveryFollowsSalon,
-  faq,
   formatHour,
   rodizioDaysText,
   schedule,
@@ -13,7 +12,6 @@ import {
   telHref,
   weekOrder,
   weekdayNames,
-  wines,
 } from "@/data/site";
 
 // ---------------------------------------------------------------- experiência
@@ -36,12 +34,6 @@ const occasions = [
     text: "A experiência La Preferitta também chega até você, com pedidos pelo cardápio online.",
     detail: deliveryFollowsSalon ? "Nos mesmos horários do salão." : "Horários no cardápio online.",
     images: ["carne-seca-especial"],
-  },
-  {
-    title: "Pizzas doces",
-    text: "Criações generosas e combinações que fizeram da La Preferitta uma especialista em pizzas doces.",
-    detail: "Especialidade da casa.",
-    images: ["uvas-e-avela"],
   },
 ] as const;
 
@@ -95,69 +87,6 @@ export function Experience() {
             label="Ver cardápio completo"
             note="Cardápio online"
             cta="cardapio"
-          />
-        </div>
-      </div>
-    </Poster>
-  );
-}
-
-// ---------------------------------------------------------------- vinhos
-
-export function Wines() {
-  const highlights = wines.filter((wine) => wine.note);
-  const others = wines.filter((wine) => !wine.note);
-
-  return (
-    <Poster id="vinhos" labelledBy="vinhos-titulo" className="bg-tomato-deep text-newsprint">
-      <div className="mx-auto max-w-screen-2xl px-4 py-16 md:px-8 md:py-24">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:items-end">
-          <h2 id="vinhos-titulo" className="pass pass-3 section-title">
-            Pizza boa pede uma taça à altura
-          </h2>
-          <p className="pass pass-3 max-w-[48ch] text-lg leading-relaxed text-newsprint/90">
-            Nossa carta reúne vinhos tintos e brancos para acompanhar diferentes sabores e momentos
-            — dos rótulos leves e frutados aos mais intensos e encorpados.
-          </p>
-        </div>
-
-        <ul className="wines mt-12 md:mt-16">
-          {highlights.map((wine, index) => (
-            <li key={wine.slug} className={`pass pass-${index + 1} wine`}>
-              <div className="wine-shelf">
-                <img
-                  src={wine.image}
-                  alt={`Garrafa de ${wine.name}`}
-                  loading="lazy"
-                  decoding="async"
-                  className="wine-bottle"
-                />
-              </div>
-              <p className="wine-style">{wine.style === "branco" ? "Branco" : "Tinto"}</p>
-              <h3 className="wine-name">{wine.name}</h3>
-              <p className="wine-note">{wine.note}</p>
-            </li>
-          ))}
-        </ul>
-
-        <div className="pass pass-3 mt-12 grid gap-8 border-t border-newsprint/20 pt-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-          <div>
-            <p className="font-label text-lg uppercase tracking-[0.12em] text-newsprint/80">
-              Também na carta
-            </p>
-            <p className="mt-2 font-didone text-2xl leading-snug md:text-3xl">
-              {others.map((wine) => wine.name).join(" · ")}
-            </p>
-            <p className="mt-3 text-sm text-newsprint/80">
-              Rótulos sujeitos à disponibilidade. Preços no cardápio online.
-            </p>
-          </div>
-          <OrderTarja
-            tone="paper"
-            label="Conhecer a carta de vinhos"
-            note="No cardápio online"
-            cta="vinhos"
-            className="sm:min-w-[22rem]"
           />
         </div>
       </div>
@@ -361,48 +290,6 @@ export function Visit() {
             {deliveryFollowsSalon && "Delivery e retirada nos mesmos horários. "}
             Horários podem sofrer alterações. Consulte o cardápio ou fale com a equipe.
           </p>
-        </div>
-      </div>
-    </Poster>
-  );
-}
-
-// ---------------------------------------------------------------- perguntas frequentes
-
-export function Faq() {
-  return (
-    <Poster
-      id="perguntas"
-      labelledBy="perguntas-titulo"
-      className="bg-ink text-newsprint"
-      grain={false}
-    >
-      <div className="mx-auto grid max-w-screen-2xl gap-10 px-4 py-16 md:px-8 md:py-24 lg:grid-cols-12">
-        <h2 id="perguntas-titulo" className="pass pass-3 section-title lg:col-span-4">
-          Perguntas frequentes
-        </h2>
-        <div className="pass pass-1 faq lg:col-span-8">
-          {faq.map((item) => (
-            <details key={item.q} className="faq-item">
-              <summary className="faq-q">
-                <span>{item.q}</span>
-                <ChevronDown aria-hidden="true" strokeWidth={1.2} className="faq-icon" />
-              </summary>
-              <div className="faq-a">
-                <p>{item.a}</p>
-                {item.link && (
-                  <a
-                    href={item.link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-link"
-                  >
-                    {item.link.label}
-                  </a>
-                )}
-              </div>
-            </details>
-          ))}
         </div>
       </div>
     </Poster>
