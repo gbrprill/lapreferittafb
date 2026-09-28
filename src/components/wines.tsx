@@ -1,12 +1,111 @@
 import { ArrowLeft } from "lucide-react";
 import { AnimatePresence, LayoutGroup, MotionConfig, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { Poster } from "@/components/poster";
 import { OrderTarja } from "@/components/tarja";
-import { wines } from "@/data/site";
+import { wineIntroVideo, wines } from "@/data/site";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const glide = { duration: 0.7, ease };
+
+type Phase = "wait" | "pour" | "settle" | "done";
+const SEEN_KEY = "lp-wine-intro";
+
+/**
+ * Opening of the wine section, once per visit: the pour fades in slowly with the
+ * title set in wine over it; the video fades away while the title warms to cream,
+ * the stage settles to its normal height and the bottles appear.
+ */
+function useWineIntro() {
+  const stageRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [phase, setPhase] = useState<Phase>("wait");
+  const [load, setLoad] = useState(false);
+
+  useEffect(() => {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem(SEEN_KEY) === "1";
+    } catch {
+      /* private mode: play it */
+    }
+    const saveData =
+      (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData ===
+      true;
+    if (seen || saveData) {
+      setPhase("done");
+      return;
+    }
+    const stage = stageRef.current;
+    if (!stage) return;
+    // Fetch the clip a little before the section arrives.
+    const near = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setLoad(true);
+          near.disconnect();
+        }
+      },
+      { rootMargin: "900px 0px" },
+    );
+    near.observe(stage);
+    return () => near.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    const video = videoRef.current;
+    if (!load || !stage || !video || phase !== "wait") return;
+    const start = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        start.disconnect();
+        try {
+          sessionStorage.setItem(SEEN_KEY, "1");
+        } catch {
+          /* ignore */
+        }
+        video.currentTime = wineIntroVideo.start;
+        video
+          .play()
+          .then(() => setPhase("pour"))
+          .catch(() => setPhase("done"));
+      },
+      { threshold: 0.55 },
+    );
+    start.observe(stage);
+    return () => start.disconnect();
+  }, [load, phase]);
+
+  // End of the pour: fade the video out, then settle.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (phase !== "pour" || !video) return;
+    const toSettle = () => setPhase("settle");
+    const onTime = () => video.currentTime >= wineIntroVideo.end && toSettle();
+    video.addEventListener("timeupdate", onTime);
+    video.addEventListener("ended", toSettle);
+    const fallback = window.setTimeout(
+      toSettle,
+      (wineIntroVideo.end - wineIntroVideo.start + 1) * 1000,
+    );
+    return () => {
+      video.removeEventListener("timeupdate", onTime);
+      video.removeEventListener("ended", toSettle);
+      window.clearTimeout(fallback);
+    };
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase !== "settle") return;
+    const timer = window.setTimeout(() => {
+      videoRef.current?.pause();
+      setPhase("done");
+    }, 2200);
+    return () => window.clearTimeout(timer);
+  }, [phase]);
+
+  return { stageRef, videoRef, phase, load };
+}
 
 /**
  * All bottles stand side by side on one shelf. Pointing at a bottle (hover, tap or
@@ -18,6 +117,7 @@ export function Wines() {
   const [touch, setTouch] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const chosen = wines.find((wine) => wine.slug === active) ?? null;
+  const intro = useWineIntro();
 
   useEffect(() => {
     setTouch(window.matchMedia("(hover: none)").matches);
@@ -34,23 +134,58 @@ export function Wines() {
   }, [active, touch]);
 
   return (
-    <Poster id="vinhos" labelledBy="vinhos-titulo" className="bg-wine text-newsprint">
-      <div className="mx-auto max-w-screen-2xl px-4 py-16 md:px-8 md:py-24">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:items-end">
-          <h2 id="vinhos-titulo" className="pass pass-3 section-title">
-            Pizza boa pede uma taça à altura
-          </h2>
-          <p className="pass pass-3 max-w-[48ch] text-lg leading-relaxed text-newsprint/90">
-            Nossa carta reúne vinhos tintos e brancos para acompanhar diferentes sabores e momentos
-            — dos rótulos leves e frutados aos mais intensos e encorpados.
-          </p>
-        </div>
+    <section
+      id="vinhos"
+      aria-labelledby="vinhos-titulo"
+      data-phase={intro.phase}
+      className="wine-section paper relative bg-wine text-newsprint"
+    >
+      <MotionConfig reducedMotion="never">
+        <motion.div
+          ref={intro.stageRef}
+          layout
+          transition={{ layout: { duration: 1.2, ease } }}
+          className="wine-stage"
+        >
+          <div className="wine-intro" aria-hidden="true">
+            {intro.load && (
+              <video
+                ref={intro.videoRef}
+                className="wine-intro-video"
+                src={wineIntroVideo.src}
+                muted
+                playsInline
+                preload="auto"
+              />
+            )}
+          </div>
+          <div className="wine-head mx-auto max-w-screen-2xl px-4 md:px-8">
+            <motion.h2
+              id="vinhos-titulo"
+              layout="position"
+              transition={{ layout: { duration: 1.2, ease } }}
+              className="section-title wine-title"
+            >
+              Pizza boa pede uma taça à altura
+            </motion.h2>
+            <p className="wine-lead max-w-[48ch] text-lg leading-relaxed text-newsprint/90">
+              Nossa carta reúne vinhos tintos e brancos para acompanhar diferentes sabores e
+              momentos — dos rótulos leves e frutados aos mais intensos e encorpados.
+            </p>
+          </div>
+        </motion.div>
+      </MotionConfig>
 
+      <motion.div
+        layout="position"
+        transition={{ layout: { duration: 1.2, ease } }}
+        className="wine-rest mx-auto max-w-screen-2xl px-4 pb-16 md:px-8 md:pb-24"
+      >
         <MotionConfig reducedMotion="user">
           <LayoutGroup>
             <div
               ref={stageRef}
-              className={`cellar pass pass-1 mt-12 md:mt-16 ${chosen ? "has-choice" : ""}`}
+              className={`cellar mt-4 md:mt-8 ${chosen ? "has-choice" : ""}`}
               onMouseLeave={() => !touch && setActive(null)}
               onKeyDown={(event) => {
                 if (event.key === "Escape" && active) {
@@ -163,7 +298,7 @@ export function Wines() {
           </LayoutGroup>
         </MotionConfig>
 
-        <div className="pass pass-3 mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-newsprint/20 pt-8">
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-newsprint/20 pt-8">
           <p className="max-w-[40ch] text-newsprint/85">
             {touch
               ? "Toque em uma garrafa para conhecer o vinho. "
@@ -178,7 +313,7 @@ export function Wines() {
             className="sm:w-auto sm:min-w-[22rem]"
           />
         </div>
-      </div>
-    </Poster>
+      </motion.div>
+    </section>
   );
 }

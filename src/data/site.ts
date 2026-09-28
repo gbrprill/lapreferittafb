@@ -183,6 +183,9 @@ export const wines: readonly Wine[] = [
   },
 ];
 
+/** Abertura da seção de vinhos: trecho do vídeo em que a taça está sendo servida (segundos). */
+export const wineIntroVideo = { src: "/videos/vinho.mp4", start: 1.5, end: 6.3 } as const;
+
 // ---------------------------------------------------------------- reservas
 
 /** Regras do painel de reserva. O site só pede disponibilidade; a equipe confirma pelo WhatsApp. */

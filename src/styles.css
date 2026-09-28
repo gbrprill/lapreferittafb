@@ -2655,3 +2655,121 @@
     }
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Wine section opening: pour, fade, settle                            */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .wine-stage {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 4rem 2rem;
+  }
+  @media (min-width: 768px) {
+    .wine-stage {
+      padding-block: 6rem 3rem;
+    }
+  }
+  .wine-intro {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 2.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .wine-section[data-phase="pour"] .wine-intro {
+    opacity: 1;
+    transition-duration: 1.8s;
+  }
+  .wine-intro-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 38% 50%;
+  }
+  /* Desktop: slide the frame left (its left edge is plain backdrop) so the glass clears the title. */
+  @media (min-width: 1024px) {
+    .wine-intro-video {
+      width: 114%;
+      max-width: none;
+      margin-left: -14%;
+    }
+  }
+  /* Phone: the pour sits on top, the title below on the clip's own light table. */
+  @media (max-width: 1023px) {
+    .wine-intro {
+      background: rgb(228 227 225);
+    }
+    .wine-intro-video {
+      height: 62%;
+      object-position: 40% 45%;
+      -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+      mask-image: linear-gradient(to bottom, #000 72%, transparent);
+    }
+  }
+  .wine-head {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 100%;
+    gap: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    .wine-head {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+      align-items: end;
+    }
+  }
+  .wine-title {
+    transition:
+      color 2.2s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 1.8s ease;
+  }
+  .wine-section[data-phase="pour"] .wine-title {
+    color: var(--wine);
+  }
+
+  /* Intro layout: tall stage, title over the white of the frame, rest held back. */
+  .js .wine-section:not([data-phase="done"]) .wine-stage {
+    min-height: 88svh;
+    justify-content: flex-end;
+  }
+  .js .wine-section:not([data-phase="done"]) .wine-lead {
+    display: none;
+  }
+  .js .wine-section[data-phase="wait"] .wine-title {
+    opacity: 0;
+  }
+  @media (min-width: 1024px) {
+    .js .wine-section:not([data-phase="done"]) .wine-stage {
+      justify-content: center;
+    }
+    .js .wine-section:not([data-phase="done"]) .wine-head {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    }
+    .js .wine-section:not([data-phase="done"]) .wine-title {
+      grid-column: 2;
+    }
+  }
+  .wine-rest {
+    transition: opacity 1s ease 0.7s;
+  }
+  .js .wine-section:not([data-phase="done"]) .wine-rest {
+    opacity: 0;
+    visibility: hidden;
+    transition: none;
+  }
+  .wine-section[data-phase="done"] .wine-lead {
+    animation: wine-lead-in 1s ease 0.6s both;
+  }
+}
+@keyframes wine-lead-in {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
