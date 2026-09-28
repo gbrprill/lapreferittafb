@@ -32,6 +32,8 @@ export const site = {
     instagramLabel: "@lapreferittafb",
     /** Perfil da empresa no Google: localização, rotas e avaliações. */
     google: "https://share.google/1w2GtWfZLS5JycqQ1",
+    /** Google Maps direto no local (abre o app do Maps no celular). */
+    maps: "https://www.google.com/maps/search/?api=1&query=La%20Preferitta%20Pizzaria%2C%20Francisco%20Beltr%C3%A3o&query_place_id=ChIJIXyCOgAN8JQRk2YbldDKnGc",
     /** Formulário oficial do Google para escrever uma avaliação. */
     writeReview: "https://search.google.com/local/writereview?placeid=ChIJIXyCOgAN8JQRk2YbldDKnGc",
   },

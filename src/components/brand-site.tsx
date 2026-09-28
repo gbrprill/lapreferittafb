@@ -184,13 +184,14 @@ function ActionBar({ heroId }: { heroId: string }) {
         <CalendarDays aria-hidden="true" /> Reservar
       </button>
       <a
-        href={site.links.google}
+        href={site.links.maps}
         target="_blank"
         rel="noopener noreferrer"
         className="door door-flag"
-        data-cta="rotas"
+        data-cta="visitar"
+        aria-label="Visitar: abrir a localização no Google Maps"
       >
-        <MapPin aria-hidden="true" /> Rotas
+        <MapPin aria-hidden="true" /> Visitar
       </a>
     </nav>
   );
