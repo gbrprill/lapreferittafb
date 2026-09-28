@@ -11,8 +11,8 @@ type Phase = "wait" | "pour" | "settle" | "done";
 
 /**
  * Opening of the wine section, once per page load: the pour fades in slowly with the
- * title set in wine over it; the video fades away while the title warms to cream,
- * the stage settles to its normal height and the bottles appear.
+ * title set in wine over it, already in its final place; the video fades away while
+ * the title warms to cream, the stage below it settles and the bottles appear.
  */
 function useWineIntro() {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -128,47 +128,31 @@ export function Wines() {
       data-phase={intro.phase}
       className="wine-section paper relative bg-wine text-newsprint"
     >
-      <MotionConfig reducedMotion="never">
-        <motion.div
-          ref={intro.stageRef}
-          layout
-          transition={{ layout: { duration: 1.2, ease } }}
-          className="wine-stage"
-        >
-          <div className="wine-intro" aria-hidden="true">
-            {intro.load && (
-              <video
-                ref={intro.videoRef}
-                className="wine-intro-video"
-                src={wineIntroVideo.src}
-                muted
-                playsInline
-                preload="auto"
-              />
-            )}
-          </div>
-          <div className="wine-head mx-auto max-w-screen-2xl px-4 md:px-8">
-            <motion.h2
-              id="vinhos-titulo"
-              layout="position"
-              transition={{ layout: { duration: 1.2, ease } }}
-              className="section-title wine-title"
-            >
-              Pizza boa pede uma taça à altura
-            </motion.h2>
-            <p className="wine-lead max-w-[48ch] text-lg leading-relaxed text-newsprint/90">
-              Nossa carta reúne vinhos tintos e brancos para acompanhar diferentes sabores e
-              momentos — dos rótulos leves e frutados aos mais intensos e encorpados.
-            </p>
-          </div>
-        </motion.div>
-      </MotionConfig>
+      <div ref={intro.stageRef} className="wine-stage">
+        <div className="wine-intro" aria-hidden="true">
+          {intro.load && (
+            <video
+              ref={intro.videoRef}
+              className="wine-intro-video"
+              src={wineIntroVideo.src}
+              muted
+              playsInline
+              preload="auto"
+            />
+          )}
+        </div>
+        <div className="wine-head mx-auto max-w-screen-2xl px-4 md:px-8">
+          <h2 id="vinhos-titulo" className="section-title wine-title">
+            Pizza boa pede uma taça à altura
+          </h2>
+          <p className="wine-lead max-w-[48ch] text-lg leading-relaxed text-newsprint/90">
+            Nossa carta reúne vinhos tintos e brancos para acompanhar diferentes sabores e momentos
+            — dos rótulos leves e frutados aos mais intensos e encorpados.
+          </p>
+        </div>
+      </div>
 
-      <motion.div
-        layout="position"
-        transition={{ layout: { duration: 1.2, ease } }}
-        className="wine-rest mx-auto max-w-screen-2xl px-4 pb-16 md:px-8 md:pb-24"
-      >
+      <div className="wine-rest mx-auto max-w-screen-2xl px-4 pb-16 md:px-8 md:pb-24">
         <MotionConfig reducedMotion="user">
           <LayoutGroup>
             <div
@@ -301,7 +285,7 @@ export function Wines() {
             className="sm:w-auto sm:min-w-[22rem]"
           />
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
