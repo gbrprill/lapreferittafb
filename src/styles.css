@@ -2592,6 +2592,26 @@
     letter-spacing: 0.08em;
     color: var(--tomato-light);
   }
+  .cellar-back {
+    position: absolute;
+    top: -3.25rem;
+    left: 0;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding-right: 0.75rem;
+    font-family: var(--font-label);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: oklch(0.965 0.01 85 / 0.9);
+  }
+  .cellar-back svg {
+    width: 2.6rem;
+    height: 1.6rem;
+  }
   .cellar-close {
     display: inline-flex;
     align-items: center;
@@ -2620,6 +2640,7 @@
       display: none;
     }
     .cellar-feature-inner {
+      top: 3.25rem;
       grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
       gap: 1rem;
     }

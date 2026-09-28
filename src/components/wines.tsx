@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { AnimatePresence, LayoutGroup, MotionConfig, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Poster } from "@/components/poster";
@@ -74,8 +74,12 @@ export function Wines() {
                         aria-controls="vinho-detalhe"
                         aria-label={`${wine.name}, ${wine.style}`}
                         onMouseEnter={() => !touch && setActive(wine.slug)}
-                        onFocus={() => setActive(wine.slug)}
-                        onClick={() => setActive(isActive && touch ? null : wine.slug)}
+                        // Keyboard focus picks a bottle; a tap's own focus event is ignored so the
+                        // click that follows can't undo the choice.
+                        onFocus={(event) =>
+                          event.currentTarget.matches(":focus-visible") && setActive(wine.slug)
+                        }
+                        onClick={() => setActive(wine.slug)}
                       >
                         {!isActive && (
                           <motion.img
@@ -108,6 +112,22 @@ export function Wines() {
                       animate={{ opacity: 1, transition: { duration: 0.35 } }}
                       exit={{ opacity: 0, transition: { duration: 0.25 } }}
                     >
+                      {touch && (
+                        <motion.button
+                          type="button"
+                          className="cellar-back"
+                          onClick={() => setActive(null)}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{
+                            opacity: 1,
+                            x: 0,
+                            transition: { duration: 0.5, ease, delay: 0.3 },
+                          }}
+                        >
+                          <ArrowLeft aria-hidden="true" strokeWidth={1} />
+                          <span>Todos os vinhos</span>
+                        </motion.button>
+                      )}
                       <div className="cellar-feature-bottle">
                         <motion.img
                           layoutId={`bottle-${chosen.slug}`}
@@ -134,15 +154,6 @@ export function Wines() {
                         <h3 className="wine-name">{chosen.name}</h3>
                         <p className="wine-grape">{chosen.grape}</p>
                         <p className="wine-note">{chosen.note}</p>
-                        {touch && (
-                          <button
-                            type="button"
-                            className="cellar-close"
-                            onClick={() => setActive(null)}
-                          >
-                            <X aria-hidden="true" strokeWidth={1.2} /> Ver todos os vinhos
-                          </button>
-                        )}
                       </motion.div>
                     </motion.div>
                   )}
