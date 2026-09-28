@@ -150,7 +150,7 @@ function Stars({ rating }: { rating: number }) {
 }
 
 export function Reviews() {
-  const { rating, count } = site.reviews;
+  const { rating } = site.reviews;
   const ratingText = rating.toLocaleString("pt-BR", { minimumFractionDigits: 1 });
 
   return (
@@ -172,7 +172,7 @@ export function Reviews() {
             <span className="rating-of"> de 5 no Google</span>
           </p>
           <Stars rating={rating} />
-          <p className="rating-count">Com base em {count} avaliações públicas.</p>
+          <p className="rating-count">Com base em avaliações públicas.</p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             <Tarja
               href={site.links.google}
