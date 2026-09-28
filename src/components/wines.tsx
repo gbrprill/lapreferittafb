@@ -8,10 +8,9 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const glide = { duration: 0.7, ease };
 
 type Phase = "wait" | "pour" | "settle" | "done";
-const SEEN_KEY = "lp-wine-intro";
 
 /**
- * Opening of the wine section, once per visit: the pour fades in slowly with the
+ * Opening of the wine section, once per page load: the pour fades in slowly with the
  * title set in wine over it; the video fades away while the title warms to cream,
  * the stage settles to its normal height and the bottles appear.
  */
@@ -22,16 +21,10 @@ function useWineIntro() {
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    let seen = false;
-    try {
-      seen = sessionStorage.getItem(SEEN_KEY) === "1";
-    } catch {
-      /* private mode: play it */
-    }
     const saveData =
       (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData ===
       true;
-    if (seen || saveData) {
+    if (saveData) {
       setPhase("done");
       return;
     }
@@ -59,11 +52,6 @@ function useWineIntro() {
       ([entry]) => {
         if (!entry?.isIntersecting) return;
         start.disconnect();
-        try {
-          sessionStorage.setItem(SEEN_KEY, "1");
-        } catch {
-          /* ignore */
-        }
         video.currentTime = wineIntroVideo.start;
         video
           .play()
